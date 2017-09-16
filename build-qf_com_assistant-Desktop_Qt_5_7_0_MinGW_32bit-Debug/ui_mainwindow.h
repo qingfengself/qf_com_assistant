@@ -35,25 +35,25 @@ public:
     QGroupBox *groupBox;
     QWidget *gridLayoutWidget;
     QGridLayout *gridLayout;
-    QComboBox *comboBox_3;
-    QComboBox *comboBox_5;
+    QComboBox *comboBox_dataBits;
+    QComboBox *comboBox_stopBits;
     QLabel *label_5;
     QLabel *label_4;
     QLabel *label;
     QLabel *label_2;
-    QComboBox *comboBox_2;
-    QPushButton *pushButton;
+    QComboBox *comboBox_baudRate;
+    QPushButton *pushButton_refresh;
     QLabel *label_3;
-    QComboBox *comboBox;
-    QComboBox *comboBox_4;
-    QComboBox *comboBox_6;
-    QPushButton *pushButton_3;
+    QComboBox *comboBox_portsNum;
+    QComboBox *comboBox_parity;
+    QComboBox *comboBox_flowControl;
+    QPushButton *pushButton_connectAndDisconnect;
     QWidget *gridLayoutWidget_2;
     QGridLayout *gridLayout_2;
-    QPlainTextEdit *plainTextEdit_2;
+    QPlainTextEdit *plainTextEdit_console;
     QWidget *gridLayoutWidget_3;
     QGridLayout *gridLayout_4;
-    QPushButton *pushButton_2;
+    QPushButton *pushButton_sendInput;
     QPlainTextEdit *plainTextEdit;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
@@ -77,15 +77,15 @@ public:
         gridLayout->setContentsMargins(11, 11, 11, 11);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
-        comboBox_3 = new QComboBox(gridLayoutWidget);
-        comboBox_3->setObjectName(QStringLiteral("comboBox_3"));
+        comboBox_dataBits = new QComboBox(gridLayoutWidget);
+        comboBox_dataBits->setObjectName(QStringLiteral("comboBox_dataBits"));
 
-        gridLayout->addWidget(comboBox_3, 2, 1, 1, 1);
+        gridLayout->addWidget(comboBox_dataBits, 2, 1, 1, 1);
 
-        comboBox_5 = new QComboBox(gridLayoutWidget);
-        comboBox_5->setObjectName(QStringLiteral("comboBox_5"));
+        comboBox_stopBits = new QComboBox(gridLayoutWidget);
+        comboBox_stopBits->setObjectName(QStringLiteral("comboBox_stopBits"));
 
-        gridLayout->addWidget(comboBox_5, 4, 1, 1, 1);
+        gridLayout->addWidget(comboBox_stopBits, 4, 1, 1, 1);
 
         label_5 = new QLabel(gridLayoutWidget);
         label_5->setObjectName(QStringLiteral("label_5"));
@@ -107,41 +107,41 @@ public:
 
         gridLayout->addWidget(label_2, 2, 0, 1, 1);
 
-        comboBox_2 = new QComboBox(gridLayoutWidget);
-        comboBox_2->setObjectName(QStringLiteral("comboBox_2"));
+        comboBox_baudRate = new QComboBox(gridLayoutWidget);
+        comboBox_baudRate->setObjectName(QStringLiteral("comboBox_baudRate"));
 
-        gridLayout->addWidget(comboBox_2, 1, 1, 1, 1);
+        gridLayout->addWidget(comboBox_baudRate, 1, 1, 1, 1);
 
-        pushButton = new QPushButton(gridLayoutWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
+        pushButton_refresh = new QPushButton(gridLayoutWidget);
+        pushButton_refresh->setObjectName(QStringLiteral("pushButton_refresh"));
 
-        gridLayout->addWidget(pushButton, 0, 0, 1, 1);
+        gridLayout->addWidget(pushButton_refresh, 0, 0, 1, 1);
 
         label_3 = new QLabel(gridLayoutWidget);
         label_3->setObjectName(QStringLiteral("label_3"));
 
         gridLayout->addWidget(label_3, 3, 0, 1, 1);
 
-        comboBox = new QComboBox(gridLayoutWidget);
-        comboBox->setObjectName(QStringLiteral("comboBox"));
+        comboBox_portsNum = new QComboBox(gridLayoutWidget);
+        comboBox_portsNum->setObjectName(QStringLiteral("comboBox_portsNum"));
 
-        gridLayout->addWidget(comboBox, 0, 1, 1, 1);
+        gridLayout->addWidget(comboBox_portsNum, 0, 1, 1, 1);
 
-        comboBox_4 = new QComboBox(gridLayoutWidget);
-        comboBox_4->setObjectName(QStringLiteral("comboBox_4"));
+        comboBox_parity = new QComboBox(gridLayoutWidget);
+        comboBox_parity->setObjectName(QStringLiteral("comboBox_parity"));
 
-        gridLayout->addWidget(comboBox_4, 3, 1, 1, 1);
+        gridLayout->addWidget(comboBox_parity, 3, 1, 1, 1);
 
-        comboBox_6 = new QComboBox(gridLayoutWidget);
-        comboBox_6->setObjectName(QStringLiteral("comboBox_6"));
+        comboBox_flowControl = new QComboBox(gridLayoutWidget);
+        comboBox_flowControl->setObjectName(QStringLiteral("comboBox_flowControl"));
 
-        gridLayout->addWidget(comboBox_6, 5, 1, 1, 1);
+        gridLayout->addWidget(comboBox_flowControl, 5, 1, 1, 1);
 
-        pushButton_3 = new QPushButton(gridLayoutWidget);
-        pushButton_3->setObjectName(QStringLiteral("pushButton_3"));
-        pushButton_3->setMinimumSize(QSize(0, 30));
+        pushButton_connectAndDisconnect = new QPushButton(gridLayoutWidget);
+        pushButton_connectAndDisconnect->setObjectName(QStringLiteral("pushButton_connectAndDisconnect"));
+        pushButton_connectAndDisconnect->setMinimumSize(QSize(0, 30));
 
-        gridLayout->addWidget(pushButton_3, 6, 0, 1, 2);
+        gridLayout->addWidget(pushButton_connectAndDisconnect, 6, 0, 1, 2);
 
         gridLayoutWidget_2 = new QWidget(centralWidget);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
@@ -151,10 +151,10 @@ public:
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setContentsMargins(0, 0, 0, 0);
-        plainTextEdit_2 = new QPlainTextEdit(gridLayoutWidget_2);
-        plainTextEdit_2->setObjectName(QStringLiteral("plainTextEdit_2"));
+        plainTextEdit_console = new QPlainTextEdit(gridLayoutWidget_2);
+        plainTextEdit_console->setObjectName(QStringLiteral("plainTextEdit_console"));
 
-        gridLayout_2->addWidget(plainTextEdit_2, 0, 0, 1, 1);
+        gridLayout_2->addWidget(plainTextEdit_console, 0, 0, 1, 1);
 
         gridLayoutWidget_3 = new QWidget(centralWidget);
         gridLayoutWidget_3->setObjectName(QStringLiteral("gridLayoutWidget_3"));
@@ -164,11 +164,11 @@ public:
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
-        pushButton_2 = new QPushButton(gridLayoutWidget_3);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setMinimumSize(QSize(0, 50));
+        pushButton_sendInput = new QPushButton(gridLayoutWidget_3);
+        pushButton_sendInput->setObjectName(QStringLiteral("pushButton_sendInput"));
+        pushButton_sendInput->setMinimumSize(QSize(0, 50));
 
-        gridLayout_4->addWidget(pushButton_2, 2, 1, 1, 1);
+        gridLayout_4->addWidget(pushButton_sendInput, 2, 1, 1, 1);
 
         plainTextEdit = new QPlainTextEdit(gridLayoutWidget_3);
         plainTextEdit->setObjectName(QStringLiteral("plainTextEdit"));
@@ -206,10 +206,10 @@ public:
         label_4->setText(QApplication::translate("MainWindow", "Stop Bits", 0));
         label->setText(QApplication::translate("MainWindow", "BaudRate", 0));
         label_2->setText(QApplication::translate("MainWindow", "Data Bits", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "Refresh", 0));
+        pushButton_refresh->setText(QApplication::translate("MainWindow", "Refresh", 0));
         label_3->setText(QApplication::translate("MainWindow", "Parity", 0));
-        pushButton_3->setText(QApplication::translate("MainWindow", "Connect", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "send", 0));
+        pushButton_connectAndDisconnect->setText(QApplication::translate("MainWindow", "Connect", 0));
+        pushButton_sendInput->setText(QApplication::translate("MainWindow", "send", 0));
     } // retranslateUi
 
 };
