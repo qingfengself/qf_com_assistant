@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 
 #include <QtSerialPort/QSerialPortInfo>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,6 +12,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* init serial port */
     initSerialPort();
+    hexToByteArray("abcd");
 }
 
 MainWindow::~MainWindow()
@@ -33,6 +35,35 @@ void MainWindow::on_pushButton_connectAndDisconnect_clicked()
 void MainWindow::on_pushButton_refresh_clicked()
 {
     refreshSerialPortNum();
+}
+
+void MainWindow::on_pushButton_sendInput_clicked()
+{
+    QString str_prefix = "[send]: ";
+    QString str_sndData;
+    str_sndData += ui->plainTextEdit_send->toPlainText();
+    if (str_sndData.isEmpty()) {
+        return;
+    }
+    ui->plainTextEdit_console->insertPlainText(str_prefix);
+    ui->plainTextEdit_console->insertPlainText(str_sndData);
+    ui->plainTextEdit_console->insertPlainText("\n");
+
+    /* send data to serial port */
+    QByteArray data;
+    if (ui->radioButton_sendHex->isChecked()) {
+        data = hexToByteArray(str_sndData);
+        for (auto it=data.cbegin(); it!=data.cend(); it++) {
+            qDebug() << "data(hex):" << QString("%1 ").arg((uchar)(*it), 0, 16);
+        }
+    } else if (ui->radioButton_sendString->isChecked()) {
+        data = strToByteArray(str_sndData);
+        for (auto it=data.cbegin(); it!=data.cend(); it++) {
+            qDebug() <<"data(str):" << QString("%1 ").arg(*it);
+        }
+    }
+    writeDataToSerial(data);
+
 }
 
 /*************************************************************
@@ -81,6 +112,12 @@ void MainWindow::initSerialPort()
 
     /* refresh ports number */
     refreshSerialPortNum();
+
+    /* connect signal and slots */
+    connect(serial, &QSerialPort::readyRead, this, &MainWindow::readDataFromSerial);
+
+    /* set defualt select */
+    ui->radioButton_sendHex->setChecked(true);
 }
 
 void MainWindow::refreshSerialPortNum()
@@ -159,6 +196,62 @@ void MainWindow::showStatusMessage(const QString &message)
     status->setText(message);
 }
 
+QString MainWindow::hexToString(const QVector<uchar> hex)
+{
+    QString str_hex = "";
+    for (auto it=hex.cbegin(); it != hex.cend(); it++) {
+        str_hex += QString("%1").arg(*it, 2, 16, QChar('0'));
+        str_hex += " ";
+    }
 
+    return str_hex;
+}
+
+QByteArray MainWindow::hexToByteArray(const QString hex)
+{
+    QByteArray data;
+    QStringList hex_list = hex.split(' ', QString::SkipEmptyParts);
+    qDebug() << hex_list;
+    for (auto it=hex_list.cbegin(); it!=hex_list.cend(); it++) {
+        data.append((*it).toInt(nullptr,16));
+    }
+    return data;
+}
+
+QByteArray MainWindow::strToByteArray(const QString str)
+{
+    QByteArray data;
+
+    for (auto it=str.cbegin(); it!=str.cend(); it++) {
+        data.append(*it);
+    }
+
+    return data;
+}
+
+
+/*
+ * @ brief : read data from serial and send it to console
+ */
+void MainWindow::readDataFromSerial()
+{
+    QByteArray data = serial->readAll();
+
+    QVector<uchar> v_data;
+    for (auto it=data.cbegin(); it!=data.cend(); it++) {
+        v_data.append((uchar)*it);
+    }
+
+    QString str_data;
+    str_data = hexToString(v_data);
+    str_data += "\n";
+
+    ui->plainTextEdit_console->insertPlainText(str_data);
+}
+
+void MainWindow::writeDataToSerial(const QByteArray data)
+{
+    serial->write(data);
+}
 
 

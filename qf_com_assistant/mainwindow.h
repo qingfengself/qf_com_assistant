@@ -38,6 +38,7 @@ public:
 private slots:
     void on_pushButton_connectAndDisconnect_clicked();
     void on_pushButton_refresh_clicked();
+    void on_pushButton_sendInput_clicked();
 
 private:
     void initSerialPort();
@@ -48,6 +49,12 @@ private:
 
     void showStatusMessage(const QString &message);
 
+    QString hexToString(const QVector<uchar> hex);
+    QByteArray hexToByteArray(const QString hex);
+    QByteArray strToByteArray(const QString str);
+
+    void readDataFromSerial();
+    void writeDataToSerial(const QByteArray data);
 
 private:
     Ui::MainWindow *ui;
