@@ -57,8 +57,8 @@ public:
     QRadioButton *radioButton_sendString;
     QWidget *gridLayoutWidget_3;
     QGridLayout *gridLayout_4;
-    QPushButton *pushButton_sendInput;
     QPlainTextEdit *plainTextEdit_send;
+    QPushButton *pushButton_sendInput;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -149,7 +149,7 @@ public:
 
         gridLayoutWidget_2 = new QWidget(centralWidget);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(200, 20, 671, 521));
+        gridLayoutWidget_2->setGeometry(QRect(200, 20, 671, 491));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -162,7 +162,7 @@ public:
 
         groupBox_2 = new QGroupBox(centralWidget);
         groupBox_2->setObjectName(QStringLiteral("groupBox_2"));
-        groupBox_2->setGeometry(QRect(200, 560, 681, 111));
+        groupBox_2->setGeometry(QRect(10, 370, 181, 141));
         radioButton_sendHex = new QRadioButton(groupBox_2);
         radioButton_sendHex->setObjectName(QStringLiteral("radioButton_sendHex"));
         radioButton_sendHex->setGeometry(QRect(10, 10, 51, 16));
@@ -171,28 +171,24 @@ public:
         radioButton_sendString->setGeometry(QRect(60, 10, 61, 16));
         gridLayoutWidget_3 = new QWidget(groupBox_2);
         gridLayoutWidget_3->setObjectName(QStringLiteral("gridLayoutWidget_3"));
-        gridLayoutWidget_3->setGeometry(QRect(10, 30, 661, 71));
+        gridLayoutWidget_3->setGeometry(QRect(10, 40, 161, 81));
         gridLayout_4 = new QGridLayout(gridLayoutWidget_3);
         gridLayout_4->setSpacing(6);
         gridLayout_4->setContentsMargins(11, 11, 11, 11);
         gridLayout_4->setObjectName(QStringLiteral("gridLayout_4"));
         gridLayout_4->setContentsMargins(0, 0, 0, 0);
-        pushButton_sendInput = new QPushButton(gridLayoutWidget_3);
-        pushButton_sendInput->setObjectName(QStringLiteral("pushButton_sendInput"));
-        pushButton_sendInput->setMinimumSize(QSize(0, 50));
-
-        gridLayout_4->addWidget(pushButton_sendInput, 1, 1, 1, 1);
-
         plainTextEdit_send = new QPlainTextEdit(gridLayoutWidget_3);
         plainTextEdit_send->setObjectName(QStringLiteral("plainTextEdit_send"));
 
         gridLayout_4->addWidget(plainTextEdit_send, 1, 0, 1, 1);
 
+        pushButton_sendInput = new QPushButton(gridLayoutWidget_3);
+        pushButton_sendInput->setObjectName(QStringLiteral("pushButton_sendInput"));
+        pushButton_sendInput->setMinimumSize(QSize(0, 20));
+
+        gridLayout_4->addWidget(pushButton_sendInput, 2, 0, 1, 1);
+
         MainWindow->setCentralWidget(centralWidget);
-        groupBox->raise();
-        gridLayoutWidget_2->raise();
-        pushButton_sendInput->raise();
-        groupBox_2->raise();
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
         menuBar->setGeometry(QRect(0, 0, 882, 23));
