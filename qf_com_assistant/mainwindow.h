@@ -40,8 +40,8 @@ private slots:
     void on_pushButton_connectAndDisconnect_clicked();
     void on_pushButton_refresh_clicked();
     void on_pushButton_sendInput_clicked();
-
     void on_pushButton_clicked();
+    void updateDateTime();
 
 private:
     void initSerialPort();

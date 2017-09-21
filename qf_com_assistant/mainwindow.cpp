@@ -3,7 +3,8 @@
 
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
-
+#include <QTimer>
+#include <QDateTime>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -75,6 +76,13 @@ void MainWindow::on_pushButton_clicked()
     QString sndHex = sndBtnTable.value(p_btn);
     QByteArray data = hexToByteArray_AppendCrcCheck(sndHex);
     writeDataToSerial(data);
+}
+
+void MainWindow::updateDateTime()
+{
+    QDateTime time = QDateTime::currentDateTime();
+    QString str = time.toString("  yyyy-MM-dd hh:mm:ss dddd");
+    ui->lineEdit_showTime->setText(str);
 }
 
 /*************************************************************
@@ -299,6 +307,12 @@ void MainWindow::writeDataToSerial(const QByteArray data)
 
 void MainWindow::initBtns()
 {
+    /* show time */
+    ui->lineEdit_showTime->setEnabled(false);
+    QTimer *timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(updateDateTime()));
+    timer->start(1000);
+
     /* record start */
     connect(ui->pushButton_recStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
     sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 00 08 00 00 00 00 00";
