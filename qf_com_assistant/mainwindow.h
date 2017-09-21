@@ -5,6 +5,7 @@
 #include <QtSerialPort/QSerialPort>
 #include <QMessageBox>
 #include <QLabel>
+#include <QMap>
 
 namespace Ui {
 class MainWindow;
@@ -40,6 +41,8 @@ private slots:
     void on_pushButton_refresh_clicked();
     void on_pushButton_sendInput_clicked();
 
+    void on_pushButton_clicked();
+
 private:
     void initSerialPort();
     void refreshSerialPortNum();
@@ -50,12 +53,19 @@ private:
     void showStatusMessage(const QString &message);
 
     QString hexToString(const QVector<uchar> hex);
+    QString hexByteArrayToString(const QByteArray hex);
     QByteArray hexToByteArray(const QString hex);
+    QByteArray hexToByteArray_AppendCrcCheck(const QString hex);
     QByteArray strToByteArray(const QString str);
 
     void readDataFromSerial();
     void writeDataToSerial(const QByteArray data);
 
+    /* btns */
+    void initBtns();
+
+    /* tools */
+    uint16_t crc16_check(QByteArray& pLcPtr, uint16_t LcLen);
 private:
     Ui::MainWindow *ui;
 
@@ -63,6 +73,9 @@ private:
     QSerialPort* serial;
     SerialPortSettings portSetting;
     QLabel *status;
+
+    /* btns */
+    QMap<QPushButton*, QString> sndBtnTable;
 };
 
 #endif // MAINWINDOW_H

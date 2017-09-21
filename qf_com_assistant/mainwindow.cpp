@@ -4,6 +4,7 @@
 #include <QtSerialPort/QSerialPortInfo>
 #include <QDebug>
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -12,7 +13,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* init serial port */
     initSerialPort();
-    hexToByteArray("abcd");
+
+    /* init btns */
+    initBtns();
 }
 
 MainWindow::~MainWindow()
@@ -64,6 +67,14 @@ void MainWindow::on_pushButton_sendInput_clicked()
     }
     writeDataToSerial(data);
 
+}
+
+void MainWindow::on_pushButton_clicked()
+{
+    QPushButton* p_btn =  (QPushButton*)sender();
+    QString sndHex = sndBtnTable.value(p_btn);
+    QByteArray data = hexToByteArray_AppendCrcCheck(sndHex);
+    writeDataToSerial(data);
 }
 
 /*************************************************************
@@ -207,6 +218,17 @@ QString MainWindow::hexToString(const QVector<uchar> hex)
     return str_hex;
 }
 
+QString MainWindow::hexByteArrayToString(const QByteArray hex)
+{
+    QString str_hex = "";
+    for (auto it=hex.cbegin(); it != hex.cend(); it++) {
+        str_hex += QString("%1").arg((uchar)*it, 2, 16, QChar('0'));
+        str_hex += " ";
+    }
+
+    return str_hex;
+}
+
 QByteArray MainWindow::hexToByteArray(const QString hex)
 {
     QByteArray data;
@@ -215,6 +237,24 @@ QByteArray MainWindow::hexToByteArray(const QString hex)
     for (auto it=hex_list.cbegin(); it!=hex_list.cend(); it++) {
         data.append((*it).toInt(nullptr,16));
     }
+    return data;
+}
+
+/*
+ * @ brief : string hex without crc to byteArray with crc.
+ * @ param [in] : string hex without crc
+ * @ return : byteArray with crc
+ */
+QByteArray MainWindow::hexToByteArray_AppendCrcCheck(const QString hex)
+{
+    QByteArray data;
+    uint16_t crcCheck = 0;
+    data = hexToByteArray(hex);
+    crcCheck = crc16_check(data, data.size());
+    qDebug() << "crcCheck = " << crcCheck;
+    data.append(crcCheck>>8 & 0xff);
+    data.append(crcCheck & 0xff);
+
     return data;
 }
 
@@ -244,14 +284,182 @@ void MainWindow::readDataFromSerial()
 
     QString str_data;
     str_data = hexToString(v_data);
-    str_data += "\n";
+    //str_data += "\n";
 
-    ui->plainTextEdit_console->insertPlainText(str_data);
+    ui->plainTextEdit_console->appendPlainText(str_data);
 }
 
 void MainWindow::writeDataToSerial(const QByteArray data)
 {
+    QString str_snd = "[ send ] : ";
+    str_snd += hexByteArrayToString(data);
+    ui->plainTextEdit_console->appendPlainText(str_snd);
     serial->write(data);
+}
+
+void MainWindow::initBtns()
+{
+    /* record start */
+    connect(ui->pushButton_recStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 00 08 00 00 00 00 00";
+
+    /* record stop */
+    connect(ui->pushButton_recStop, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_recStop]     = "AB BA 90 0F 08 00 00 10 00 00 00 00 00";
+
+    /* start event record */
+    connect(ui->pushButton_eventStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_eventStart]     = "AB BA 90 0F 08 00 00 18 00 00 00 00 00";
+
+    /* capture */
+    connect(ui->pushButton_capture, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_capture]     = "AB BA 90 0F 08 00 00 48 00 00 00 00 00";
+
+    /* mic on */
+    connect(ui->pushButton_micOn, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_micOn]     = "AB BA 90 0F 08 02 00 00 00 00 00 00 00";
+
+    /* mic off */
+    connect(ui->pushButton_micOff, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_micOff]     = "AB BA 90 0F 08 01 00 00 00 00 00 00 00";
+
+    /* nomal browse */
+    connect(ui->pushButton_normalBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    connect(ui->pushButton_normalBrowse_inThumb, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_normalBrowse]            = "AB BA 90 0F 08 00 00 20 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_normalBrowse_inThumb]    = "AB BA 90 0F 08 00 00 20 00 00 00 00 00";
+
+    /* event browse */
+    connect(ui->pushButton_eventBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_eventBrowse] = "AB BA 90 0F 08 00 00 28 00 00 00 00 00";
+
+    /* photo browse */
+    connect(ui->pushButton_photoBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_photoBrowse] = "AB BA 90 0F 08 00 00 38 00 00 00 00 00";
+
+    /* exit browse */
+    connect(ui->pushButton_exitBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_exitBrowse] = "AB BA 90 0F 08 00 00 40 00 00 00 00 00";
+
+    /* prev page */
+    connect(ui->pushButton_prevPage, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_prevPage] = "AB BA 90 0F 08 00 50 00 00 00 00 00 00";
+
+    /* next page */
+    connect(ui->pushButton_nextPage, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_nextPage] = "AB BA 90 0F 08 00 60 00 00 00 00 00 00";
+
+    /* delete all */
+    connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 00 60 00 00 00 00 00";
+
+    /* delete all */
+    connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 00 60 00 00 00 00 00";
+
+    /* delete all */
+    connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 00 60 00 00 00 00 00";
+
+    /* exit play */
+    connect(ui->pushButton_exitPlay, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_exitPlay] = "AB BA 90 0F 08 00 00 88 00 00 00 00 00";
+
+    /* play in pb */
+    connect(ui->pushButton_play, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_play] = "AB BA 90 0F 08 00 00 68 00 00 00 00 00";
+
+    /* pause */
+    connect(ui->pushButton_pause, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_pause] = "AB BA 90 0F 08 00 00 70 00 00 00 00 00";
+
+    /* play prev */
+    connect(ui->pushButton_playPrev, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_playPrev] = "AB BA 90 0F 08 00 00 78 00 00 00 00 00";
+
+    /* play next */
+    connect(ui->pushButton_playNext, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_playNext] = "AB BA 90 0F 08 00 00 80 00 00 00 00 00";
+
+    /* 1080p */
+    connect(ui->pushButton_1080p, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_1080p] = "AB BA 90 0F 08 04 00 00 00 00 00 00 00";
+    /* 720p */
+    connect(ui->pushButton_720p, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_720p] = " AB BA 90 0F 08 08 00 00 00 00 00 00 00";
+
+    /* 5min */
+    connect(ui->pushButton_5min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_5min] = "AB BA 90 0F 08 30 00 00 00 00 00 00 00";
+    /* 3min */
+    connect(ui->pushButton_3min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_3min] = "AB BA 90 0F 08 20 00 00 00 00 00 00 00";
+    /* 1min */
+    connect(ui->pushButton_1min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_1min] = "AB BA 90 0F 08 10 00 00 00 00 00 00 00";
+
+    /* format sd card */
+    connect(ui->pushButton_format, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_format] = "AB BA 90 0F 08 40 00 00 00 00 00 00 00";
+
+    /* load default configuration */
+    connect(ui->pushButton_loadDef, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_loadDef] = "AB BA 90 0F 08 80 00 00 00 00 00 00 00";
+
+    /* return home */
+    connect(ui->pushButton_returnHome, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_returnHome] = "AB BA 90 0F 08 00 04 00 00 00 00 00 00";
+
+    /* update system */
+    connect(ui->pushButton_update, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_update] = "AB BA 90 0F 08 00 01 00 00 00 00 00 00";
+
+    /* event record by mcu */
+    connect(ui->pushButton_eventStart_byMcu, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_eventStart_byMcu] = " AB BA 80 08 01 01";
+
+    /* power off */
+    connect(ui->pushButton_powerOff, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_powerOff] = "AB BA 60 08 01 00";
+
+    /* start recrod by mcu */
+    connect(ui->pushButton_startRec_byMcu, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_startRec_byMcu] = "AB BA 12 08 01 01";
+    /* stop record by mcu */
+    connect(ui->pushButton_stopRec_byMcu, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_stopRec_byMcu] = "AB BA 12 08 01 00";
+}
+
+/******************************************************************
+* 函数名称: CalculateCRC16
+* 功能描述: 循环校验
+* 输入参数: pLcPtr(指针地址)， LcLen(数据长度)
+* 输出参数: CRC 校验结果
+* 返 回 值: lwCRC16， 循环校验
+*********************************************************************/
+uint16_t MainWindow::crc16_check(QByteArray& pLcPtr, uint16_t LcLen)
+{
+    uchar i;
+    uint16_t lwCRC16 = 0;
+    for(int j=0; j<LcLen; j++) {
+        for(i=0x80;i!=0;i>>=1)
+        {
+            if(0 != (lwCRC16&0x8000))
+            {
+                lwCRC16 <<= 1;
+                lwCRC16 ^= 0x1021;
+            }
+            else
+            {
+                lwCRC16 <<= 1;
+            }
+            if(0 != (pLcPtr[j]&i))
+            {
+                lwCRC16 ^= 0x1021;
+            }
+        }
+    }
+    return(lwCRC16);
 }
 
 

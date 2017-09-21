@@ -204,13 +204,13 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>4</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="tab">
      <attribute name="title">
       <string>录像</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="pushButton_micOn">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -223,7 +223,7 @@
        <string>mic_on</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="pushButton_micOff">
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -236,7 +236,7 @@
        <string>mic_off</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="pushButton_recStart">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -249,7 +249,7 @@
        <string>rec_start</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_4">
+     <widget class="QPushButton" name="pushButton_recStop">
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -262,7 +262,7 @@
        <string>rec_stop</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_5">
+     <widget class="QPushButton" name="pushButton_eventStart">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -275,7 +275,7 @@
        <string>event</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_6">
+     <widget class="QPushButton" name="pushButton_capture">
       <property name="geometry">
        <rect>
         <x>100</x>
@@ -288,7 +288,7 @@
        <string>capture</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_18">
+     <widget class="QPushButton" name="pushButton_normalBrowse">
       <property name="geometry">
        <rect>
         <x>210</x>
@@ -306,7 +306,7 @@
      <attribute name="title">
       <string>回放</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_14">
+     <widget class="QPushButton" name="pushButton_prevPage">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -319,7 +319,7 @@
        <string>prev_page</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_17">
+     <widget class="QPushButton" name="pushButton_nextPage">
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -332,7 +332,7 @@
        <string>next_page</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_20">
+     <widget class="QPushButton" name="pushButton_photoBrowse">
       <property name="geometry">
        <rect>
         <x>200</x>
@@ -345,7 +345,7 @@
        <string>photo</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_19">
+     <widget class="QPushButton" name="pushButton_eventBrowse">
       <property name="geometry">
        <rect>
         <x>110</x>
@@ -358,7 +358,7 @@
        <string>event</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_21">
+     <widget class="QPushButton" name="pushButton_normalBrowse_inThumb">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -371,7 +371,7 @@
        <string>normal</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_22">
+     <widget class="QPushButton" name="pushButton_exitBrowse">
       <property name="geometry">
        <rect>
         <x>10</x>
@@ -381,10 +381,10 @@
        </rect>
       </property>
       <property name="text">
-       <string>exit</string>
+       <string>exit_browse</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_25">
+     <widget class="QPushButton" name="pushButton_deleteAll">
       <property name="geometry">
        <rect>
         <x>70</x>
@@ -409,7 +409,7 @@
       <property name="title">
        <string/>
       </property>
-      <widget class="QRadioButton" name="radioButton">
+      <widget class="QRadioButton" name="radioButton_1">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -487,7 +487,7 @@
         <string>6</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_7">
+      <widget class="QRadioButton" name="radioButton_8">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -500,7 +500,7 @@
         <string>8</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_8">
+      <widget class="QRadioButton" name="radioButton_9">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -513,7 +513,7 @@
         <string>9</string>
        </property>
       </widget>
-      <widget class="QRadioButton" name="radioButton_9">
+      <widget class="QRadioButton" name="radioButton_7">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -526,7 +526,7 @@
         <string>7</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_26">
+      <widget class="QPushButton" name="pushButton_playWithIndex">
        <property name="geometry">
         <rect>
          <x>30</x>
@@ -552,7 +552,7 @@
       <property name="title">
        <string/>
       </property>
-      <widget class="QCheckBox" name="checkBox">
+      <widget class="QCheckBox" name="checkBox_1">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -591,7 +591,7 @@
         <string>3</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_4">
+      <widget class="QCheckBox" name="checkBox_6">
        <property name="geometry">
         <rect>
          <x>90</x>
@@ -604,7 +604,7 @@
         <string>6</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_5">
+      <widget class="QCheckBox" name="checkBox_4">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -617,7 +617,7 @@
         <string>4</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_6">
+      <widget class="QCheckBox" name="checkBox_5">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -630,7 +630,7 @@
         <string>5</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_7">
+      <widget class="QCheckBox" name="checkBox_8">
        <property name="geometry">
         <rect>
          <x>50</x>
@@ -643,7 +643,7 @@
         <string>8</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_8">
+      <widget class="QCheckBox" name="checkBox_7">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -669,7 +669,7 @@
         <string>9</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_23">
+      <widget class="QPushButton" name="pushButton_move">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -682,7 +682,7 @@
         <string>move</string>
        </property>
       </widget>
-      <widget class="QPushButton" name="pushButton_24">
+      <widget class="QPushButton" name="pushButton_delete">
        <property name="geometry">
         <rect>
          <x>70</x>
@@ -714,7 +714,7 @@
      <attribute name="title">
       <string>播放</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_27">
+     <widget class="QPushButton" name="pushButton_play">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -727,7 +727,7 @@
        <string>play</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_28">
+     <widget class="QPushButton" name="pushButton_pause">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -740,7 +740,7 @@
        <string>pause</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_29">
+     <widget class="QPushButton" name="pushButton_playPrev">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -753,7 +753,7 @@
        <string>prev</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_30">
+     <widget class="QPushButton" name="pushButton_playNext">
       <property name="geometry">
        <rect>
         <x>250</x>
@@ -766,17 +766,17 @@
        <string>next</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_59">
+     <widget class="QPushButton" name="pushButton_exitPlay">
       <property name="geometry">
        <rect>
         <x>10</x>
         <y>0</y>
-        <width>51</width>
+        <width>71</width>
         <height>23</height>
        </rect>
       </property>
       <property name="text">
-       <string>exit</string>
+       <string>exit_play</string>
       </property>
      </widget>
     </widget>
@@ -784,7 +784,7 @@
      <attribute name="title">
       <string>设置</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_7">
+     <widget class="QPushButton" name="pushButton_1080p">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -797,7 +797,7 @@
        <string>1080p</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_8">
+     <widget class="QPushButton" name="pushButton_720p">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -810,7 +810,7 @@
        <string>720p</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_9">
+     <widget class="QPushButton" name="pushButton_5min">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -823,7 +823,7 @@
        <string>5min</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_10">
+     <widget class="QPushButton" name="pushButton_3min">
       <property name="geometry">
        <rect>
         <x>90</x>
@@ -836,7 +836,7 @@
        <string>3min</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_11">
+     <widget class="QPushButton" name="pushButton_1min">
       <property name="geometry">
        <rect>
         <x>160</x>
@@ -849,7 +849,7 @@
        <string>1min</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_12">
+     <widget class="QPushButton" name="pushButton_format">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -862,7 +862,7 @@
        <string>format</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_13">
+     <widget class="QPushButton" name="pushButton_loadDef">
       <property name="geometry">
        <rect>
         <x>130</x>
@@ -880,12 +880,12 @@
      <attribute name="title">
       <string>mcu触发</string>
      </attribute>
-     <widget class="QPushButton" name="pushButton_60">
+     <widget class="QPushButton" name="pushButton_updateTime">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>10</y>
-        <width>81</width>
+        <x>40</x>
+        <y>90</y>
+        <width>111</width>
         <height>23</height>
        </rect>
       </property>
@@ -893,11 +893,11 @@
        <string>update time</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_61">
+     <widget class="QPushButton" name="pushButton_eventStart_byMcu">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>50</y>
+        <y>20</y>
         <width>81</width>
         <height>23</height>
        </rect>
@@ -906,11 +906,11 @@
        <string>event record</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_62">
+     <widget class="QPushButton" name="pushButton_powerOff">
       <property name="geometry">
        <rect>
-        <x>10</x>
-        <y>90</y>
+        <x>100</x>
+        <y>20</y>
         <width>81</width>
         <height>23</height>
        </rect>
@@ -919,12 +919,12 @@
        <string>power off</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_63">
+     <widget class="QPushButton" name="pushButton_stopRec_byMcu">
       <property name="geometry">
        <rect>
-        <x>120</x>
+        <x>100</x>
         <y>50</y>
-        <width>71</width>
+        <width>81</width>
         <height>23</height>
        </rect>
       </property>
@@ -932,12 +932,12 @@
        <string>stop rec</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton_64">
+     <widget class="QPushButton" name="pushButton_startRec_byMcu">
       <property name="geometry">
        <rect>
-        <x>200</x>
+        <x>10</x>
         <y>50</y>
-        <width>71</width>
+        <width>81</width>
         <height>23</height>
        </rect>
       </property>
@@ -947,7 +947,7 @@
      </widget>
     </widget>
    </widget>
-   <widget class="QPushButton" name="pushButton_15">
+   <widget class="QPushButton" name="pushButton_update">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -960,7 +960,7 @@
      <string>update</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_16">
+   <widget class="QPushButton" name="pushButton_returnHome">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -973,7 +973,7 @@
      <string>return home</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="lineEdit_showTime">
     <property name="geometry">
      <rect>
       <x>10</x>
