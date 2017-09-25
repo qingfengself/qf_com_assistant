@@ -380,33 +380,33 @@ void MainWindow::initBtns()
 
     /* record start */
     connect(ui->pushButton_recStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 00 08 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_recStart]    = "ab ba 12 0f 08 00 08 00 00 00 00 00 00";
 
     /* record stop */
     connect(ui->pushButton_recStop, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_recStop]     = "AB BA 90 0F 08 00 00 10 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_recStop]     = "ab ba 12 0f 08 00 10 00 00 00 00 00 00";
 
     /* start event record */
     connect(ui->pushButton_eventStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_eventStart]     = "AB BA 90 0F 08 00 00 18 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_eventStart]     = "ab ba 12 0f 08 00 18 00 00 00 00 00 00";
 
     /* capture */
     connect(ui->pushButton_capture, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_capture]     = "AB BA 90 0F 08 00 00 48 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_capture]     = "ab ba 12 0f 08 00 48 00 00 00 00 00 00";
 
     /* mic on */
     connect(ui->pushButton_micOn, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_micOn]     = "AB BA 90 0F 08 02 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_micOn]     = "ab ba 12 0f 08 80 00 00 00 00 00 00 00";
 
     /* mic off */
     connect(ui->pushButton_micOff, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_micOff]     = "AB BA 90 0F 08 01 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_micOff]     = "ab ba 12 0f 08 40 00 00 00 00 00 00 00";
 
     /* nomal browse */
     connect(ui->pushButton_normalBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
     connect(ui->pushButton_normalBrowse_inThumb, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_normalBrowse]            = "AB BA 90 0F 08 00 00 20 00 00 00 00 00";
-    sndBtnTable[ui->pushButton_normalBrowse_inThumb]    = "AB BA 90 0F 08 00 00 20 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_normalBrowse]            = "ab ba 12 0f 08 00 20 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_normalBrowse_inThumb]    = "ab ba 12 0f 08 00 20 00 00 00 00 00 00";
 
     /* event browse */
     connect(ui->pushButton_eventBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -462,28 +462,28 @@ void MainWindow::initBtns()
 
     /* 1080p */
     connect(ui->pushButton_1080p, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_1080p] = "AB BA 90 0F 08 04 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_1080p] = "ab ba 12 0f 08 00 01 00 00 00 00 00 00";
     /* 720p */
     connect(ui->pushButton_720p, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_720p] = " AB BA 90 0F 08 08 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_720p] = "ab ba 12 0f 08 00 02 00 00 00 00 00 00";
 
     /* 5min */
     connect(ui->pushButton_5min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_5min] = "AB BA 90 0F 08 30 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_5min] = "ab ba 12 0f 08 30 00 00 00 00 00 00 00";
     /* 3min */
     connect(ui->pushButton_3min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_3min] = "AB BA 90 0F 08 20 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_3min] = "ab ba 12 0f 08 20 00 00 00 00 00 00 00";
     /* 1min */
     connect(ui->pushButton_1min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_1min] = "AB BA 90 0F 08 10 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_1min] = "ab ba 12 0f 08 10 00 00 00 00 00 00 00";
 
     /* format sd card */
     connect(ui->pushButton_format, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_format] = "AB BA 90 0F 08 40 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_format] = "ab ba 12 0f 08 00 30 00 00 00 00 00 00";
 
     /* load default configuration */
     connect(ui->pushButton_loadDef, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_loadDef] = "AB BA 90 0F 08 80 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_loadDef] = "ab ba 12 0f 08 00 40 00 00 00 00 00 00";
 
     /* return home */
     connect(ui->pushButton_returnHome, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -491,15 +491,20 @@ void MainWindow::initBtns()
 
     /* update system */
     connect(ui->pushButton_update, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_update] = "AB BA 90 0F 08 00 01 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_update] = "ab ba 12 0f 08 00 f8 00 00 00 00 00 00";
 
+    /** by mcu */
     /* event record by mcu */
     connect(ui->pushButton_eventStart_byMcu, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_eventStart_byMcu] = " AB BA 80 08 01 01";
+    sndBtnTable[ui->pushButton_eventStart_byMcu] = "ab ba 80 07 00";
 
     /* power off */
     connect(ui->pushButton_powerOff, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_powerOff] = "AB BA 60 08 01 00";
+    sndBtnTable[ui->pushButton_powerOff] = "ab ba 60 07 00";
+
+    /* Acc off */
+    connect(ui->pushButton_accOff, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_accOff] = "ab ba 65 07 00";
 
     /* start recrod by mcu */
     connect(ui->pushButton_startRec_byMcu, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
