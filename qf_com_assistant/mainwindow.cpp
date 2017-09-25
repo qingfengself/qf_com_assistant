@@ -49,9 +49,6 @@ void MainWindow::on_pushButton_sendInput_clicked()
     if (str_sndData.isEmpty()) {
         return;
     }
-    ui->plainTextEdit_console->insertPlainText(str_prefix);
-    ui->plainTextEdit_console->insertPlainText(str_sndData);
-    ui->plainTextEdit_console->insertPlainText("\n");
 
     /* send data to serial port */
     QByteArray data;
@@ -66,6 +63,10 @@ void MainWindow::on_pushButton_sendInput_clicked()
             qDebug() <<"data(str):" << QString("%1 ").arg(*it);
         }
     }
+
+    if (ui->checkBox_sndWithCrc->isChecked()) {
+        data = hexToByteArray_AppendCrcCheck(data);
+    }
     writeDataToSerial(data);
 
 }
@@ -73,9 +74,23 @@ void MainWindow::on_pushButton_sendInput_clicked()
 void MainWindow::on_pushButton_clicked()
 {
     QPushButton* p_btn =  (QPushButton*)sender();
-    QString sndHex = sndBtnTable.value(p_btn);
-    QByteArray data = hexToByteArray_AppendCrcCheck(sndHex);
+    QByteArray data;
+
+    if (p_btn == ui->pushButton_updateTime) {
+        data = getBtnUpdateTimeSndHex();
+    } else if (p_btn == ui->pushButton_playWithIndex) {
+       data = getBtnPlayWithIdx();
+    } else if (p_btn == ui->pushButton_move) {
+       data = getBtnMoveWithIdx();
+    } else if (p_btn == ui->pushButton_delete) {
+       data = getBtnDelWithIdx();
+    } else {
+       QString sndHex = sndBtnTable.value(p_btn);
+       data = hexToByteArray(sndHex);
+    }
+    data = hexToByteArray_AppendCrcCheck(data);
     writeDataToSerial(data);
+
 }
 
 void MainWindow::updateDateTime()
@@ -85,6 +100,46 @@ void MainWindow::updateDateTime()
     ui->lineEdit_showTime->setText(str);
 }
 
+void MainWindow::on_checkBox_all_stateChanged(int state)
+{
+    switch (state) {
+    case Qt::Unchecked:
+        ui->checkBox_1->setChecked(false);
+        ui->checkBox_2->setChecked(false);
+        ui->checkBox_3->setChecked(false);
+        ui->checkBox_4->setChecked(false);
+        ui->checkBox_5->setChecked(false);
+        ui->checkBox_6->setChecked(false);
+        ui->checkBox_7->setChecked(false);
+        ui->checkBox_8->setChecked(false);
+        ui->checkBox_9->setChecked(false);
+        break;
+    case Qt::Checked:
+        ui->checkBox_1->setChecked(true);
+        ui->checkBox_2->setChecked(true);
+        ui->checkBox_3->setChecked(true);
+        ui->checkBox_4->setChecked(true);
+        ui->checkBox_5->setChecked(true);
+        ui->checkBox_6->setChecked(true);
+        ui->checkBox_7->setChecked(true);
+        ui->checkBox_8->setChecked(true);
+        ui->checkBox_9->setChecked(true);
+        break;
+    }
+}
+
+void MainWindow::on_pushButton_clearCheckBox_clicked()
+{
+    ui->checkBox_1->setChecked(false);
+    ui->checkBox_2->setChecked(false);
+    ui->checkBox_3->setChecked(false);
+    ui->checkBox_4->setChecked(false);
+    ui->checkBox_5->setChecked(false);
+    ui->checkBox_6->setChecked(false);
+    ui->checkBox_7->setChecked(false);
+    ui->checkBox_8->setChecked(false);
+    ui->checkBox_9->setChecked(false);
+}
 /*************************************************************
  **************** private funcs ******************************
  *************************************************************/
@@ -233,7 +288,6 @@ QString MainWindow::hexByteArrayToString(const QByteArray hex)
         str_hex += QString("%1").arg((uchar)*it, 2, 16, QChar('0'));
         str_hex += " ";
     }
-
     return str_hex;
 }
 
@@ -260,6 +314,17 @@ QByteArray MainWindow::hexToByteArray_AppendCrcCheck(const QString hex)
     data = hexToByteArray(hex);
     crcCheck = crc16_check(data, data.size());
     qDebug() << "crcCheck = " << crcCheck;
+    data.append(crcCheck>>8 & 0xff);
+    data.append(crcCheck & 0xff);
+
+    return data;
+}
+
+QByteArray MainWindow::hexToByteArray_AppendCrcCheck(const QByteArray hex)
+{
+    QByteArray data = hex;
+    uint16_t crcCheck = crc16_check(data, data.size());
+    qDebug() << "crcCheck = " << hex << crcCheck;
     data.append(crcCheck>>8 & 0xff);
     data.append(crcCheck & 0xff);
 
@@ -442,8 +507,150 @@ void MainWindow::initBtns()
     /* stop record by mcu */
     connect(ui->pushButton_stopRec_byMcu, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
     sndBtnTable[ui->pushButton_stopRec_byMcu] = "AB BA 12 08 01 00";
+
+    /** special handle btns */
+    /* update time */
+    connect(ui->pushButton_updateTime, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_updateTime] = "AB BA 02 0E 07 20 17 11 30 23 59 58";
+
+    /* play with index */
+    connect(ui->pushButton_playWithIndex, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_playWithIndex] = "AB BA 90 0F 08 00 00 68 00 04 00 00 00";
+    /* move file with index */
+    connect(ui->pushButton_move, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_move] = "AB BA 90 0F 08 00 00 50 00 08 00 00 00";
+    /* delete file with index */
+    connect(ui->pushButton_delete, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_delete] = "AB BA 90 0F 08 00 00 58 00 08 00 00 00";
+
+    /** others */
+    connect(ui->checkBox_all, QCheckBox::stateChanged, this, MainWindow::on_checkBox_all_stateChanged);
 }
 
+QByteArray MainWindow::getBtnUpdateTimeSndHex()
+{
+    QDateTime time = QDateTime::currentDateTime();
+    QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_updateTime));
+    /* "AB BA 02 0E 07 -- 20 17 11 30 23 59 58 --" */
+    QString str_time = time.toString("yyyy MM dd hh mm ss");
+    QStringList str_list = str_time.split(" ", QString::SkipEmptyParts);
+    QString str_year = str_list.at(0);
+    QString str_month = str_list.at(1);
+    QString str_day = str_list.at(2);
+    QString str_hour = str_list.at(3);
+    QString str_minute = str_list.at(4);
+    QString str_second = str_list.at(5);
+
+    hexData[5] = (uchar)((str_year.toInt(nullptr, 16) >> 8) & 0xff);
+    hexData[6] = str_year.toInt(nullptr, 16) & 0xff;
+    hexData[7] = str_month.toInt(nullptr, 16);
+    hexData[8] = str_day.toInt(nullptr, 16);
+    hexData[9] = str_hour.toInt(nullptr, 16);
+    hexData[10] = str_minute.toInt(nullptr, 16);
+    hexData[11] = str_second.toInt(nullptr, 16);
+
+    qDebug() << str_time;
+    return hexData;
+}
+
+QByteArray MainWindow::getBtnPlayWithIdx()
+{
+    QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_playWithIndex));
+    // "AB BA 90 0F 08 00 00 68  -- 00 04 -- 00 00 00"
+    uint16_t index = 0;
+    if (ui->radioButton_1->isChecked()) {
+        index = 0x01;
+    }
+    if (ui->radioButton_2->isChecked()) {
+        index = 0x01 << 1;
+    }
+    if (ui->radioButton_3->isChecked()) {
+        index = 0x01 << 2;
+    }
+    if (ui->radioButton_4->isChecked()) {
+        index = 0x01 << 3;
+    }
+    if (ui->radioButton_5->isChecked()) {
+        index = 0x01 << 4;
+    }
+    if (ui->radioButton_6->isChecked()) {
+        index = 0x01 << 5;
+    }
+    if (ui->radioButton_7->isChecked()) {
+        index = 0x01 << 6;
+    }
+    if (ui->radioButton_8->isChecked()) {
+        index = 0x01 << 7;
+    }
+    if (ui->radioButton_9->isChecked()) {
+        index = 0x01 << 8;
+    }
+
+    index = index << 3;
+    hexData[8] = (index >> 8) & 0xff;
+    hexData[9] = index & 0xff;
+
+    return hexData;
+
+}
+
+QByteArray MainWindow::getBtnMoveWithIdx()
+{
+    QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_move));
+    // "AB BA 90 0F 08 00 00 50 -- 00 08 -- 00 00 00"
+    uint16_t index = getCheckBoxIdx();
+    index = index << 3;
+    hexData[8] = (index >> 8) & 0xff;
+    hexData[9] = index & 0xff;
+
+    return hexData;
+}
+
+QByteArray MainWindow::getBtnDelWithIdx()
+{
+    QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_delete));
+    // "AB BA 90 0F 08 00 00 58 -- 00 08 -- 00 00 00"
+    uint16_t index = getCheckBoxIdx();
+    index = index << 3;
+    hexData[8] = (index >> 8) & 0xff;
+    hexData[9] = index & 0xff;
+
+    return hexData;
+}
+
+uint16_t MainWindow::getCheckBoxIdx()
+{
+    uint16_t index = 0;
+    if (ui->checkBox_1->isChecked()) {
+        index |= 0x01;
+    }
+    if (ui->checkBox_2->isChecked()) {
+        index |= 0x01 << 1;
+    }
+    if (ui->checkBox_3->isChecked()) {
+        index |= 0x01 << 2;
+    }
+    if (ui->checkBox_4->isChecked()) {
+        index |= 0x01 << 3;
+    }
+    if (ui->checkBox_5->isChecked()) {
+        index |= 0x01 << 4;
+    }
+    if (ui->checkBox_6->isChecked()) {
+        index |= 0x01 << 5;
+    }
+    if (ui->checkBox_7->isChecked()) {
+        index |= 0x01 << 6;
+    }
+    if (ui->checkBox_8->isChecked()) {
+        index |= 0x01 << 7;
+    }
+    if (ui->checkBox_9->isChecked()) {
+        index |= 0x01 << 8;
+    }
+
+    return index;
+}
 /******************************************************************
 * 函数名称: CalculateCRC16
 * 功能描述: 循环校验
@@ -451,7 +658,7 @@ void MainWindow::initBtns()
 * 输出参数: CRC 校验结果
 * 返 回 值: lwCRC16， 循环校验
 *********************************************************************/
-uint16_t MainWindow::crc16_check(QByteArray& pLcPtr, uint16_t LcLen)
+uint16_t MainWindow::crc16_check(QByteArray pLcPtr, uint16_t LcLen)
 {
     uchar i;
     uint16_t lwCRC16 = 0;

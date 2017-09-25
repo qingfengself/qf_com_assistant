@@ -42,6 +42,8 @@ private slots:
     void on_pushButton_sendInput_clicked();
     void on_pushButton_clicked();
     void updateDateTime();
+    void on_checkBox_all_stateChanged(int state);
+    void on_pushButton_clearCheckBox_clicked();
 
 private:
     void initSerialPort();
@@ -56,6 +58,7 @@ private:
     QString hexByteArrayToString(const QByteArray hex);
     QByteArray hexToByteArray(const QString hex);
     QByteArray hexToByteArray_AppendCrcCheck(const QString hex);
+    QByteArray hexToByteArray_AppendCrcCheck(const QByteArray hex);
     QByteArray strToByteArray(const QString str);
 
     void readDataFromSerial();
@@ -63,9 +66,14 @@ private:
 
     /* btns */
     void initBtns();
+    QByteArray getBtnUpdateTimeSndHex();
+    QByteArray getBtnPlayWithIdx();
+    QByteArray getBtnMoveWithIdx();
+    QByteArray getBtnDelWithIdx();
+    uint16_t getCheckBoxIdx();
 
     /* tools */
-    uint16_t crc16_check(QByteArray& pLcPtr, uint16_t LcLen);
+    uint16_t crc16_check(QByteArray pLcPtr, uint16_t LcLen);
 private:
     Ui::MainWindow *ui;
 

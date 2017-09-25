@@ -62,6 +62,7 @@ public:
     QGridLayout *gridLayout_4;
     QPlainTextEdit *plainTextEdit_send;
     QPushButton *pushButton_sendInput;
+    QCheckBox *checkBox_sndWithCrc;
     QTabWidget *tabWidget;
     QWidget *tab;
     QPushButton *pushButton_micOn;
@@ -102,7 +103,8 @@ public:
     QCheckBox *checkBox_9;
     QPushButton *pushButton_move;
     QPushButton *pushButton_delete;
-    QCheckBox *checkBox_10;
+    QCheckBox *checkBox_all;
+    QPushButton *pushButton_clearCheckBox;
     QWidget *tab_4;
     QPushButton *pushButton_play;
     QPushButton *pushButton_pause;
@@ -255,6 +257,9 @@ public:
 
         gridLayout_4->addWidget(pushButton_sendInput, 2, 0, 1, 1);
 
+        checkBox_sndWithCrc = new QCheckBox(groupBox_2);
+        checkBox_sndWithCrc->setObjectName(QStringLiteral("checkBox_sndWithCrc"));
+        checkBox_sndWithCrc->setGeometry(QRect(130, 10, 41, 16));
         tabWidget = new QTabWidget(centralWidget);
         tabWidget->setObjectName(QStringLiteral("tabWidget"));
         tabWidget->setGeometry(QRect(200, 530, 671, 151));
@@ -374,9 +379,12 @@ public:
         pushButton_delete = new QPushButton(groupBox_4);
         pushButton_delete->setObjectName(QStringLiteral("pushButton_delete"));
         pushButton_delete->setGeometry(QRect(70, 90, 51, 23));
-        checkBox_10 = new QCheckBox(groupBox_4);
-        checkBox_10->setObjectName(QStringLiteral("checkBox_10"));
-        checkBox_10->setGeometry(QRect(130, 10, 41, 16));
+        checkBox_all = new QCheckBox(groupBox_4);
+        checkBox_all->setObjectName(QStringLiteral("checkBox_all"));
+        checkBox_all->setGeometry(QRect(130, 10, 41, 16));
+        pushButton_clearCheckBox = new QPushButton(groupBox_4);
+        pushButton_clearCheckBox->setObjectName(QStringLiteral("pushButton_clearCheckBox"));
+        pushButton_clearCheckBox->setGeometry(QRect(130, 40, 51, 23));
         tabWidget->addTab(tab_2, QString());
         tab_4 = new QWidget();
         tab_4->setObjectName(QStringLiteral("tab_4"));
@@ -482,6 +490,7 @@ public:
         radioButton_sendHex->setText(QApplication::translate("MainWindow", "hex", 0));
         radioButton_sendString->setText(QApplication::translate("MainWindow", "string", 0));
         pushButton_sendInput->setText(QApplication::translate("MainWindow", "send", 0));
+        checkBox_sndWithCrc->setText(QApplication::translate("MainWindow", "crc", 0));
         pushButton_micOn->setText(QApplication::translate("MainWindow", "mic_on", 0));
         pushButton_micOff->setText(QApplication::translate("MainWindow", "mic_off", 0));
         pushButton_recStart->setText(QApplication::translate("MainWindow", "rec_start", 0));
@@ -520,7 +529,8 @@ public:
         checkBox_9->setText(QApplication::translate("MainWindow", "9", 0));
         pushButton_move->setText(QApplication::translate("MainWindow", "move", 0));
         pushButton_delete->setText(QApplication::translate("MainWindow", "delete", 0));
-        checkBox_10->setText(QApplication::translate("MainWindow", "all", 0));
+        checkBox_all->setText(QApplication::translate("MainWindow", "all", 0));
+        pushButton_clearCheckBox->setText(QApplication::translate("MainWindow", "clear", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainWindow", "\345\233\236\346\224\276", 0));
         pushButton_play->setText(QApplication::translate("MainWindow", "play", 0));
         pushButton_pause->setText(QApplication::translate("MainWindow", "pause", 0));
