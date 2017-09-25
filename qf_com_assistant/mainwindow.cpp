@@ -380,15 +380,15 @@ void MainWindow::initBtns()
 
     /* record start */
     connect(ui->pushButton_recStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 00 08 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 30 00 00 00 00 00 00";
 
     /* record stop */
     connect(ui->pushButton_recStop, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_recStop]     = "AB BA 90 0F 08 00 00 10 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_recStop]     = "AB BA 90 0F 08 00 80 00 00 00 00 00 00";
 
     /* start event record */
     connect(ui->pushButton_eventStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_eventStart]     = "AB BA 90 0F 08 00 00 18 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_eventStart]     = "AB BA 90 0F 08 00 C0 00 00 00 00 00 00";
 
     /* capture */
     connect(ui->pushButton_capture, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -405,60 +405,52 @@ void MainWindow::initBtns()
     /* nomal browse */
     connect(ui->pushButton_normalBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
     connect(ui->pushButton_normalBrowse_inThumb, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_normalBrowse]            = "AB BA 90 0F 08 00 00 20 00 00 00 00 00";
-    sndBtnTable[ui->pushButton_normalBrowse_inThumb]    = "AB BA 90 0F 08 00 00 20 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_normalBrowse]            = "AB BA 90 0F 08 00 00 01 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_normalBrowse_inThumb]    = "AB BA 90 0F 08 00 00 01 00 00 00 00 00";
 
     /* event browse */
     connect(ui->pushButton_eventBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_eventBrowse] = "AB BA 90 0F 08 00 00 28 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_eventBrowse] = "AB BA 90 0F 08 00 40 01 00 00 00 00 00";
 
     /* photo browse */
     connect(ui->pushButton_photoBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_photoBrowse] = "AB BA 90 0F 08 00 00 38 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_photoBrowse] = "AB BA 90 0F 08 00 80 01 00 00 00 00 00";
 
     /* exit browse */
     connect(ui->pushButton_exitBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_exitBrowse] = "AB BA 90 0F 08 00 00 40 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_exitBrowse] = "AB BA 90 0F 08 00 30 00 00 00 00 00 00";
 
     /* prev page */
     connect(ui->pushButton_prevPage, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_prevPage] = "AB BA 90 0F 08 00 50 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_prevPage] = "AB BA 90 0F 08 00 14 00 00 00 00 00 00";
 
     /* next page */
     connect(ui->pushButton_nextPage, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_nextPage] = "AB BA 90 0F 08 00 60 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_nextPage] = "AB BA 90 0F 08 00 18 00 00 00 00 00 00";
 
     /* delete all */
     connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 00 60 00 00 00 00 00";
-
-    /* delete all */
-    connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 00 60 00 00 00 00 00";
-
-    /* delete all */
-    connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 00 60 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_deleteAll] = "AB BA 90 0F 08 00 80 02 00 00 00 00 00";
 
     /* exit play */
     connect(ui->pushButton_exitPlay, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_exitPlay] = "AB BA 90 0F 08 00 00 88 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_exitPlay] = "AB BA 90 0F 08 00 C0 03 00 00 00 00 00";
 
     /* play in pb */
     connect(ui->pushButton_play, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_play] = "AB BA 90 0F 08 00 00 68 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_play] = "AB BA 90 0F 08 00 C0 02 00 00 00 00 00";
 
     /* pause */
     connect(ui->pushButton_pause, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_pause] = "AB BA 90 0F 08 00 00 70 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_pause] = "AB BA 90 0F 08 00 00 03 00 00 00 00 00";
 
     /* play prev */
     connect(ui->pushButton_playPrev, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_playPrev] = "AB BA 90 0F 08 00 00 78 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_playPrev] = "AB BA 90 0F 08 00 40 03 00 00 00 00 00";
 
     /* play next */
     connect(ui->pushButton_playNext, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_playNext] = "AB BA 90 0F 08 00 00 80 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_playNext] = "AB BA 90 0F 08 00 80 03 00 00 00 00 00";
 
     /* 1080p */
     connect(ui->pushButton_1080p, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -487,7 +479,7 @@ void MainWindow::initBtns()
 
     /* return home */
     connect(ui->pushButton_returnHome, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_returnHome] = "AB BA 90 0F 08 00 04 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_returnHome] = "AB BA 90 0F 08 00 02 00 00 00 00 00 00";
 
     /* update system */
     connect(ui->pushButton_update, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -515,13 +507,14 @@ void MainWindow::initBtns()
 
     /* play with index */
     connect(ui->pushButton_playWithIndex, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_playWithIndex] = "AB BA 90 0F 08 00 00 68 00 04 00 00 00";
+    sndBtnTable[ui->pushButton_playWithIndex] = "AB BA 90 0F 08 00 C0 02 00 00 00 00 00";
+
     /* move file with index */
     connect(ui->pushButton_move, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_move] = "AB BA 90 0F 08 00 00 50 00 08 00 00 00";
+    sndBtnTable[ui->pushButton_move] = "AB BA 90 0F 08 00 00 02 00 00 00 00 00";
     /* delete file with index */
     connect(ui->pushButton_delete, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_delete] = "AB BA 90 0F 08 00 00 58 00 08 00 00 00";
+    sndBtnTable[ui->pushButton_delete] = "AB BA 90 0F 08 00 40 02 00 00 00 00 00";
 
     /** others */
     connect(ui->checkBox_all, QCheckBox::stateChanged, this, MainWindow::on_checkBox_all_stateChanged);
@@ -586,9 +579,8 @@ QByteArray MainWindow::getBtnPlayWithIdx()
         index = 0x01 << 8;
     }
 
-    index = index << 3;
-    hexData[8] = (index >> 8) & 0xff;
-    hexData[9] = index & 0xff;
+    setDataIdx(hexData, index);
+
 
     return hexData;
 
@@ -597,11 +589,9 @@ QByteArray MainWindow::getBtnPlayWithIdx()
 QByteArray MainWindow::getBtnMoveWithIdx()
 {
     QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_move));
-    // "AB BA 90 0F 08 00 00 50 -- 00 08 -- 00 00 00"
+    // [4][3][2] 3-8-5
     uint16_t index = getCheckBoxIdx();
-    index = index << 3;
-    hexData[8] = (index >> 8) & 0xff;
-    hexData[9] = index & 0xff;
+    setDataIdx(hexData, index);
 
     return hexData;
 }
@@ -611,9 +601,7 @@ QByteArray MainWindow::getBtnDelWithIdx()
     QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_delete));
     // "AB BA 90 0F 08 00 00 58 -- 00 08 -- 00 00 00"
     uint16_t index = getCheckBoxIdx();
-    index = index << 3;
-    hexData[8] = (index >> 8) & 0xff;
-    hexData[9] = index & 0xff;
+    setDataIdx(hexData, index);
 
     return hexData;
 }
@@ -651,6 +639,15 @@ uint16_t MainWindow::getCheckBoxIdx()
 
     return index;
 }
+
+void MainWindow::setDataIdx(QByteArray& hexData, uint16_t index)
+{
+    index = index << 4;
+    hexData[7] = hexData[7] | (index & 0xff);
+    hexData[8] = hexData[8] | ((index >> 8) & 0xff);
+
+}
+
 /******************************************************************
 * 函数名称: CalculateCRC16
 * 功能描述: 循环校验

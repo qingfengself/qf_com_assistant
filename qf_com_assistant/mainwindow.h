@@ -71,6 +71,7 @@ private:
     QByteArray getBtnMoveWithIdx();
     QByteArray getBtnDelWithIdx();
     uint16_t getCheckBoxIdx();
+    void setDataIdx(QByteArray& hexData, uint16_t index);
 
     /* tools */
     uint16_t crc16_check(QByteArray pLcPtr, uint16_t LcLen);
