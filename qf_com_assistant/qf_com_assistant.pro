@@ -19,3 +19,5 @@ SOURCES += main.cpp\
 HEADERS  += mainwindow.h
 
 FORMS    += mainwindow.ui
+
+RC_ICONS = app.ico #add app icon

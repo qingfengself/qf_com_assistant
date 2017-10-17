@@ -45,6 +45,8 @@ private slots:
     void on_checkBox_all_stateChanged(int state);
     void on_pushButton_clearCheckBox_clicked();
 
+    void on_pushButton_clear_clicked();
+
 private:
     void initSerialPort();
     void refreshSerialPortNum();
@@ -67,6 +69,7 @@ private:
     /* btns */
     void initBtns();
     QByteArray getBtnUpdateTimeSndHex();
+    QByteArray getBtnSyncSpeedSndHex();
     QByteArray getBtnPlayWithIdx();
     QByteArray getBtnMoveWithIdx();
     QByteArray getBtnDelWithIdx();
