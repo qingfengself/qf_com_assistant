@@ -119,6 +119,8 @@ public:
     QPushButton *pushButton_1min;
     QPushButton *pushButton_format;
     QPushButton *pushButton_loadDef;
+    QPushButton *pushButton_wifiOn;
+    QPushButton *pushButton_wifiOff;
     QWidget *tab_9;
     QPushButton *pushButton_updateTime;
     QPushButton *pushButton_eventStart_byMcu;
@@ -128,6 +130,7 @@ public:
     QPushButton *pushButton_update;
     QPushButton *pushButton_returnHome;
     QLineEdit *lineEdit_showTime;
+    QPushButton *pushButton_sendCarInfo;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -427,6 +430,12 @@ public:
         pushButton_loadDef = new QPushButton(tab_3);
         pushButton_loadDef->setObjectName(QStringLiteral("pushButton_loadDef"));
         pushButton_loadDef->setGeometry(QRect(130, 70, 81, 31));
+        pushButton_wifiOn = new QPushButton(tab_3);
+        pushButton_wifiOn->setObjectName(QStringLiteral("pushButton_wifiOn"));
+        pushButton_wifiOn->setGeometry(QRect(240, 10, 61, 23));
+        pushButton_wifiOff = new QPushButton(tab_3);
+        pushButton_wifiOff->setObjectName(QStringLiteral("pushButton_wifiOff"));
+        pushButton_wifiOff->setGeometry(QRect(300, 10, 61, 23));
         tabWidget->addTab(tab_3, QString());
         tab_9 = new QWidget();
         tab_9->setObjectName(QStringLiteral("tab_9"));
@@ -455,6 +464,9 @@ public:
         lineEdit_showTime = new QLineEdit(centralWidget);
         lineEdit_showTime->setObjectName(QStringLiteral("lineEdit_showTime"));
         lineEdit_showTime->setGeometry(QRect(10, 550, 181, 31));
+        pushButton_sendCarInfo = new QPushButton(centralWidget);
+        pushButton_sendCarInfo->setObjectName(QStringLiteral("pushButton_sendCarInfo"));
+        pushButton_sendCarInfo->setGeometry(QRect(10, 600, 181, 31));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -469,7 +481,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(3);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -545,6 +557,8 @@ public:
         pushButton_1min->setText(QApplication::translate("MainWindow", "1min", 0));
         pushButton_format->setText(QApplication::translate("MainWindow", "format", 0));
         pushButton_loadDef->setText(QApplication::translate("MainWindow", "load_def", 0));
+        pushButton_wifiOn->setText(QApplication::translate("MainWindow", "wifi on", 0));
+        pushButton_wifiOff->setText(QApplication::translate("MainWindow", "wifi off", 0));
         tabWidget->setTabText(tabWidget->indexOf(tab_3), QApplication::translate("MainWindow", "\350\256\276\347\275\256", 0));
         pushButton_updateTime->setText(QApplication::translate("MainWindow", "update time", 0));
         pushButton_eventStart_byMcu->setText(QApplication::translate("MainWindow", "event record", 0));
@@ -554,6 +568,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab_9), QApplication::translate("MainWindow", "mcu\350\247\246\345\217\221", 0));
         pushButton_update->setText(QApplication::translate("MainWindow", "update", 0));
         pushButton_returnHome->setText(QApplication::translate("MainWindow", "return home", 0));
+        pushButton_sendCarInfo->setText(QApplication::translate("MainWindow", "send car Info", 0));
     } // retranslateUi
 
 };

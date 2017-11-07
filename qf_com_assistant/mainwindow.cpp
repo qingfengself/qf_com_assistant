@@ -157,6 +157,7 @@ void MainWindow::initSerialPort()
     ui->comboBox_baudRate->addItem(QStringLiteral("38400"), QSerialPort::Baud38400);
     ui->comboBox_baudRate->addItem(QStringLiteral("115200"), QSerialPort::Baud115200);
     //ui->baudRateBox->addItem(tr("Custom"));
+     ui->comboBox_baudRate->setCurrentIndex(2);
 
     /* data bits */
     ui->comboBox_dataBits->addItem(QStringLiteral("5"), QSerialPort::Data5);
@@ -380,7 +381,7 @@ void MainWindow::initBtns()
 
     /* record start */
     connect(ui->pushButton_recStart, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 30 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_recStart]    = "AB BA 90 0F 08 00 40 00 00 00 00 00 00";
 
     /* record stop */
     connect(ui->pushButton_recStop, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -392,7 +393,7 @@ void MainWindow::initBtns()
 
     /* capture */
     connect(ui->pushButton_capture, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_capture]     = "AB BA 90 0F 08 00 00 48 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_capture]     = "AB BA 90 0F 08 00 C0 01 00 00 00 00 00";
 
     /* mic on */
     connect(ui->pushButton_micOn, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -418,15 +419,15 @@ void MainWindow::initBtns()
 
     /* exit browse */
     connect(ui->pushButton_exitBrowse, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_exitBrowse] = "AB BA 90 0F 08 00 30 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_exitBrowse] = "AB BA 90 0F 08 00 40 00 00 00 00 00 00";
 
     /* prev page */
     connect(ui->pushButton_prevPage, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_prevPage] = "AB BA 90 0F 08 00 14 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_prevPage] = "AB BA 90 0F 08 00 00 00 20 00 00 00 00";
 
     /* next page */
     connect(ui->pushButton_nextPage, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_nextPage] = "AB BA 90 0F 08 00 18 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_nextPage] = "AB BA 90 0F 08 00 00 00 40 00 00 00 00";
 
     /* delete all */
     connect(ui->pushButton_deleteAll, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -461,13 +462,20 @@ void MainWindow::initBtns()
 
     /* 5min */
     connect(ui->pushButton_5min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_5min] = "AB BA 90 0F 08 30 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_5min] = "AB BA 90 0F 08 30 00 00 00 18 00 00 00";
     /* 3min */
     connect(ui->pushButton_3min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_3min] = "AB BA 90 0F 08 20 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_3min] = "AB BA 90 0F 08 00 00 00 00 10 00 00 00";
     /* 1min */
     connect(ui->pushButton_1min, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
-    sndBtnTable[ui->pushButton_1min] = "AB BA 90 0F 08 10 00 00 00 00 00 00 00";
+    sndBtnTable[ui->pushButton_1min] = "AB BA 90 0F 08 00 00 00 00 08 00 00 00";
+
+    /* wifi off */
+    connect(ui->pushButton_wifiOff, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_wifiOff] = "AB BA 90 0F 08 00 04 00 00 00 00 00 00";
+    /* wifi on */
+    connect(ui->pushButton_wifiOn, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_wifiOn] = "AB BA 90 0F 08 00 08 00 00 00 00 00 00";
 
     /* format sd card */
     connect(ui->pushButton_format, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
@@ -515,6 +523,10 @@ void MainWindow::initBtns()
     /* delete file with index */
     connect(ui->pushButton_delete, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
     sndBtnTable[ui->pushButton_delete] = "AB BA 90 0F 08 00 40 02 00 00 00 00 00";
+
+    /* send car Info */
+    connect(ui->pushButton_sendCarInfo, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_sendCarInfo] = "AB BA 03 0F 08 00 00 00 00 00 00 00 00";
 
     /** others */
     connect(ui->checkBox_all, QCheckBox::stateChanged, this, MainWindow::on_checkBox_all_stateChanged);
