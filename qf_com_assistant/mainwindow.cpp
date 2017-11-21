@@ -140,6 +140,38 @@ void MainWindow::on_pushButton_clearCheckBox_clicked()
     ui->checkBox_8->setChecked(false);
     ui->checkBox_9->setChecked(false);
 }
+
+void MainWindow::on_pushButton_carInfo_update_clicked()
+{
+    QByteArray data;
+    QByteArray hexData = hexToByteArray("ab ba 0f 08 01 02 01 02 03 01 02 03");
+
+    uint16_t speed = ui->lineEdit_carInfo_speed->text().toInt();
+    uint32_t mileage = ui->lineEdit_carInfo_mileage->text().toInt();
+
+    qDebug() < "speed: " < speed;
+    qDebug() < "mileage: " < mileage;
+    uint8_t gear = 0;
+    uint8_t steeringWheel = 0;
+    uint8_t lightSignal = 0;
+    uint8_t saftyBelt = 0;
+
+    /** gear */
+    if () {}
+
+    /** steering wheel */
+    if (ui->radioButton_carInfo_steeringWheel_middle->isChecked()) {
+        steeringWheel = 0x10;
+    } else if (ui->radioButton_carInfo_steeringWheel_left->isChecked()) {
+        steeringWheel = 0x20;
+    } else if (ui->radioButton_carInfo_steeringWheel_right->isChecked()) {
+        steeringWheel = 0x30;
+    }
+
+
+    data = hexToByteArray_AppendCrcCheck(hexData);
+    writeDataToSerial(data);
+}
 /*************************************************************
  **************** private funcs ******************************
  *************************************************************/
@@ -691,5 +723,9 @@ uint16_t MainWindow::crc16_check(QByteArray pLcPtr, uint16_t LcLen)
     }
     return(lwCRC16);
 }
+
+
+
+
 
 

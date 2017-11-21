@@ -1038,24 +1038,11 @@
        <string>km/h</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="pushButton">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>10</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>speed</string>
-      </property>
-     </widget>
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>10</y>
+        <x>240</x>
+        <y>50</y>
         <width>261</width>
         <height>141</height>
        </rect>
@@ -1193,7 +1180,7 @@
         <string>break</string>
        </property>
       </widget>
-      <widget class="QCheckBox" name="checkBox_19">
+      <widget class="QCheckBox" name="checkBox_carInfo_saftyBelt">
        <property name="geometry">
         <rect>
          <x>10</x>
@@ -1206,19 +1193,6 @@
         <string>safty belt</string>
        </property>
       </widget>
-     </widget>
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>50</y>
-        <width>121</width>
-        <height>31</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>mileage</string>
-      </property>
      </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
@@ -1308,17 +1282,17 @@
        </property>
       </widget>
      </widget>
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="pushButton_carInfo_update">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>110</y>
-        <width>121</width>
-        <height>51</height>
+        <x>520</x>
+        <y>10</y>
+        <width>141</width>
+        <height>61</height>
        </rect>
       </property>
       <property name="text">
-       <string>car_info</string>
+       <string>update</string>
       </property>
      </widget>
      <widget class="QGroupBox" name="groupBox_7">
@@ -1383,6 +1357,97 @@
        </property>
        <property name="text">
         <string>reart right</string>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QGroupBox" name="groupBox_8">
+      <property name="geometry">
+       <rect>
+        <x>500</x>
+        <y>90</y>
+        <width>161</width>
+        <height>101</height>
+       </rect>
+      </property>
+      <property name="title">
+       <string>gear</string>
+      </property>
+      <widget class="QRadioButton" name="radioButton_carInfo_gear_p">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>20</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>P</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_carInfo_gear_R">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>20</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>R</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_carInfo_gear_N">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>50</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>N</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_carInfo_gear_D">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>50</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>D</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_carInfo_gear_M">
+       <property name="geometry">
+        <rect>
+         <x>20</x>
+         <y>80</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>M</string>
+       </property>
+      </widget>
+      <widget class="QRadioButton" name="radioButton_carInfo_gear_I">
+       <property name="geometry">
+        <rect>
+         <x>80</x>
+         <y>80</y>
+         <width>41</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>I</string>
        </property>
       </widget>
      </widget>
