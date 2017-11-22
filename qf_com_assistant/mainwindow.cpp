@@ -149,15 +149,36 @@ void MainWindow::on_pushButton_carInfo_update_clicked()
     uint16_t speed = ui->lineEdit_carInfo_speed->text().toInt();
     uint32_t mileage = ui->lineEdit_carInfo_mileage->text().toInt();
 
-    qDebug() < "speed: " < speed;
-    qDebug() < "mileage: " < mileage;
+    qDebug() << "speed: " << speed;
+    qDebug() << "mileage: " << mileage;
     uint8_t gear = 0;
     uint8_t steeringWheel = 0;
     uint8_t lightSignal = 0;
-    uint8_t saftyBelt = 0;
+    uint8_t saftySignal = 0;
 
     /** gear */
-    if () {}
+    if (ui->radioButton_carInfo_gear_p->isChecked()) {
+        gear = 0x01;
+    } else if (ui->radioButton_carInfo_gear_R->isChecked()) {
+        gear = 0x02;
+    } else if (ui->radioButton_carInfo_gear_N->isChecked()) {
+        gear = 0x03;
+    } else if (ui->radioButton_carInfo_gear_D->isChecked()) {
+        gear = 0x04;
+    } else if (ui->radioButton_carInfo_gear_M->isChecked()) {
+        gear = 0x05;
+    } else if (ui->radioButton_carInfo_gear_I->isChecked()) {
+        gear = 0x07;
+    }
+
+    if (ui->radioButton_carInfo_steeringWheel_middle->isChecked()) {
+        gear |= 0x10;
+    } else if (ui->radioButton_carInfo_steeringWheel_left->isChecked()) {
+        gear |= 0x20;
+    } else if (ui->radioButton_carInfo_steeringWheel_right->isChecked()) {
+        gear |= 0x30;
+    }
+
 
     /** steering wheel */
     if (ui->radioButton_carInfo_steeringWheel_middle->isChecked()) {
@@ -168,6 +189,68 @@ void MainWindow::on_pushButton_carInfo_update_clicked()
         steeringWheel = 0x30;
     }
 
+    /** ligth signal */
+    if (ui->checkBox_carInfo_leftTurn->isChecked()) {
+        lightSignal |= 0x01;
+    }
+    if (ui->checkBox_carInfo_rightTurn->isChecked()) {
+        lightSignal |= 0x02;
+    }
+    if (ui->checkBox_carInfo_highBeam->isChecked()) {
+        lightSignal |= 0x04;
+    }
+    if (ui->checkBox_carInfo_lowBeam->isChecked()) {
+        lightSignal |= 0x08;
+    }
+    if (ui->checkBox_carInfo_troubleLight->isChecked()) {
+        lightSignal |= 0x10;
+    }
+    if (ui->checkBox_carInfo_parkingLight->isChecked()) {
+        lightSignal |= 0x20;
+    }
+    if (ui->checkBox_carInfo_frontFogLamb->isChecked()) {
+        lightSignal |= 0x40;
+    }
+    if (ui->checkBox_carInfo_rearFogLamb->isChecked()) {
+        lightSignal |= 0x80;
+    }
+
+    /** safety signals */
+    if (ui->checkBox_carInfo_acceleratorPedal->isChecked()) {
+        saftySignal = 0x01;
+    }
+    if (ui->checkBox_carInfo_break->isChecked()) {
+        saftySignal = 0x02;
+    }
+    if (ui->checkBox_carInfo_saftyBelt->isChecked()) {
+        saftySignal = 0x04;
+    }
+    if (ui->checkBox_carInfo_door_driver->isChecked()) {
+        saftySignal = 0x08;
+    }
+    if (ui->checkBox_carInfo_door_passenger->isChecked()) {
+        saftySignal = 0x10;
+    }
+    if (ui->checkBox_carInfo_door_rearLeft->isChecked()) {
+        saftySignal = 0x20;
+    }
+    if (ui->checkBox_carInfo_door_rearRight->isChecked()) {
+        saftySignal = 0x40;
+    }
+
+    /** speed */
+    hexData[5] = speed & 0xff00;
+    hexData[6] = speed & 0xff;
+    /** gear */
+    hexData[7] = gear;
+    /** light signal */
+    hexData[8] = lightSignal;
+    /** safety signal */
+    hexData[9] = saftySignal;
+    /** mileage */
+    hexData[10] = mileage & 0xff0000;
+    hexData[11] = mileage & 0x00ff00;
+    hexData[12] = mileage & 0x0000ff;
 
     data = hexToByteArray_AppendCrcCheck(hexData);
     writeDataToSerial(data);
