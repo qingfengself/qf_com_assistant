@@ -144,7 +144,7 @@ void MainWindow::on_pushButton_clearCheckBox_clicked()
 void MainWindow::on_pushButton_carInfo_update_clicked()
 {
     QByteArray data;
-    QByteArray hexData = hexToByteArray("ab ba 0f 08 01 02 01 02 03 01 02 03");
+    QByteArray hexData = hexToByteArray("ab ba 03 0f 08 01 02 01 02 03 01 02 03");
 
     uint16_t speed = ui->lineEdit_carInfo_speed->text().toInt();
     uint32_t mileage = ui->lineEdit_carInfo_mileage->text().toInt();
@@ -239,7 +239,7 @@ void MainWindow::on_pushButton_carInfo_update_clicked()
     }
 
     /** speed */
-    hexData[5] = speed & 0xff00;
+    hexData[5] = speed>>8 & 0xff;
     hexData[6] = speed & 0xff;
     /** gear */
     hexData[7] = gear;
@@ -248,9 +248,9 @@ void MainWindow::on_pushButton_carInfo_update_clicked()
     /** safety signal */
     hexData[9] = saftySignal;
     /** mileage */
-    hexData[10] = mileage & 0xff0000;
-    hexData[11] = mileage & 0x00ff00;
-    hexData[12] = mileage & 0x0000ff;
+    hexData[10] = mileage>>16 & 0xff;
+    hexData[11] = mileage>>8 & 0xff;
+    hexData[12] = mileage & 0xff;
 
     data = hexToByteArray_AppendCrcCheck(hexData);
     writeDataToSerial(data);
