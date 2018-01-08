@@ -140,6 +140,12 @@ void MainWindow::on_pushButton_clearCheckBox_clicked()
     ui->checkBox_8->setChecked(false);
     ui->checkBox_9->setChecked(false);
 }
+
+void MainWindow::on_pushButton_clear_plainText_clicked()
+{
+    ui->plainTextEdit_console->clear();
+}
+
 /*************************************************************
  **************** private funcs ******************************
  *************************************************************/

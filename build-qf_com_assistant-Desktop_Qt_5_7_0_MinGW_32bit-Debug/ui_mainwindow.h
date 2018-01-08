@@ -128,6 +128,7 @@ public:
     QPushButton *pushButton_update;
     QPushButton *pushButton_returnHome;
     QLineEdit *lineEdit_showTime;
+    QPushButton *pushButton_clear_plainText;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -455,6 +456,9 @@ public:
         lineEdit_showTime = new QLineEdit(centralWidget);
         lineEdit_showTime->setObjectName(QStringLiteral("lineEdit_showTime"));
         lineEdit_showTime->setGeometry(QRect(10, 550, 181, 31));
+        pushButton_clear_plainText = new QPushButton(centralWidget);
+        pushButton_clear_plainText->setObjectName(QStringLiteral("pushButton_clear_plainText"));
+        pushButton_clear_plainText->setGeometry(QRect(110, 280, 75, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -469,7 +473,7 @@ public:
 
         retranslateUi(MainWindow);
 
-        tabWidget->setCurrentIndex(0);
+        tabWidget->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainWindow);
@@ -554,6 +558,7 @@ public:
         tabWidget->setTabText(tabWidget->indexOf(tab_9), QApplication::translate("MainWindow", "mcu\350\247\246\345\217\221", 0));
         pushButton_update->setText(QApplication::translate("MainWindow", "update", 0));
         pushButton_returnHome->setText(QApplication::translate("MainWindow", "return home", 0));
+        pushButton_clear_plainText->setText(QApplication::translate("MainWindow", "clear", 0));
     } // retranslateUi
 
 };

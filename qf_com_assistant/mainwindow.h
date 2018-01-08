@@ -45,6 +45,8 @@ private slots:
     void on_checkBox_all_stateChanged(int state);
     void on_pushButton_clearCheckBox_clicked();
 
+    void on_pushButton_clear_plainText_clicked();
+
 private:
     void initSerialPort();
     void refreshSerialPortNum();
