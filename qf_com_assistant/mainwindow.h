@@ -6,6 +6,20 @@
 #include <QMessageBox>
 #include <QLabel>
 #include <QMap>
+#include <QComboBox>
+
+
+/******************************************
+ * selfdef struct
+ * ****************************************/
+
+typedef struct _REC_FLOW_INFOS_s_{
+    uint32_t recFlow_idx;
+    QString recFlow_name;
+    QByteArrayList recFlow_cmds;
+    uint32_t recFlow_cmdDelayTime; /** delay time between  cmds */
+    uint32_t recFlow_groupDelayTime; /** delay time between cmd group */
+}REC_FLOW_INFOS_s;
 
 namespace Ui {
 class MainWindow;
@@ -44,8 +58,15 @@ private slots:
     void updateDateTime();
     void on_checkBox_all_stateChanged(int state);
     void on_pushButton_clearCheckBox_clicked();
-
     void on_pushButton_clear_plainText_clicked();
+
+    void on_pushButton_recordFlow_clicked();
+    void on_pushButton_execFlow_clicked();
+    void on_pushButton_recFlow_saveConfig_clicked();
+    void on_pushButton_recFlow_loadConfig_clicked();
+    void on_pushButton_recFlow_delete_clicked();
+
+    void slot_execRecordFlow_timerHandler();
 
 private:
     void initSerialPort();
@@ -57,7 +78,6 @@ private:
     void showStatusMessage(const QString &message);
 
     QString hexToString(const QVector<uchar> hex);
-    QString hexByteArrayToString(const QByteArray hex);
     QByteArray hexToByteArray(const QString hex);
     QByteArray hexToByteArray_AppendCrcCheck(const QString hex);
     QByteArray hexToByteArray_AppendCrcCheck(const QByteArray hex);
@@ -76,6 +96,27 @@ private:
 
     /* tools */
     uint16_t crc16_check(QByteArray pLcPtr, uint16_t LcLen);
+
+    /* refresh record flow combobox */
+    void refresh_recFlowComboBox();
+
+    /** save and load */
+    QString convertToSaveType(uint32_t data);
+    QString convertToSaveType(QString data);
+    QString convertToSaveType(QByteArray data);
+
+    uint32_t convertSaveTypeTo_uint32(QString data);
+    QString convertSaveTypeTo_str(QString data);
+    QByteArray convertSaveTypeTo_byteArray(QString data);
+
+    void save_recFlowConfigs();
+    int load_recFlowConfigs();
+
+public:
+    QString hexByteArrayToString(const QByteArray hex);
+    REC_FLOW_INFOS_s getRecFlowInfos(int idx);
+    void setRecFlowInfos(REC_FLOW_INFOS_s info);
+
 private:
     Ui::MainWindow *ui;
 
@@ -86,6 +127,11 @@ private:
 
     /* btns */
     QMap<QPushButton*, QString> sndBtnTable;
+
+    /* rec flow */
+    int recFlowStart;
+    REC_FLOW_INFOS_s flowInfo_tmp;
+    QMap<int, REC_FLOW_INFOS_s> recFlowInfos;
 };
 
 #endif // MAINWINDOW_H

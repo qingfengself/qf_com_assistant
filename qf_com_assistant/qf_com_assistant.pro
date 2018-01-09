@@ -14,10 +14,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    dialog_config_recflow.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    dialog_config_recflow.h
 
-FORMS    += mainwindow.ui
+FORMS    += mainwindow.ui \
+    dialog_config_recflow.ui
 
 RC_ICONS = app.ico #add app icon

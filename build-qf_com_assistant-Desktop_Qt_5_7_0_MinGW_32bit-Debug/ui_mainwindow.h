@@ -129,6 +129,13 @@ public:
     QPushButton *pushButton_returnHome;
     QLineEdit *lineEdit_showTime;
     QPushButton *pushButton_clear_plainText;
+    QGroupBox *groupBox_5;
+    QPushButton *pushButton_recordFlow;
+    QPushButton *pushButton_execFlow;
+    QComboBox *comboBox_uartCmdFlowList;
+    QPushButton *pushButton_recFlow_loadConfig;
+    QPushButton *pushButton_recFlow_saveConfig;
+    QPushButton *pushButton_recFlow_delete;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -219,7 +226,7 @@ public:
 
         gridLayoutWidget_2 = new QWidget(centralWidget);
         gridLayoutWidget_2->setObjectName(QStringLiteral("gridLayoutWidget_2"));
-        gridLayoutWidget_2->setGeometry(QRect(200, 20, 671, 491));
+        gridLayoutWidget_2->setGeometry(QRect(200, 60, 671, 451));
         gridLayout_2 = new QGridLayout(gridLayoutWidget_2);
         gridLayout_2->setSpacing(6);
         gridLayout_2->setContentsMargins(11, 11, 11, 11);
@@ -458,7 +465,28 @@ public:
         lineEdit_showTime->setGeometry(QRect(10, 550, 181, 31));
         pushButton_clear_plainText = new QPushButton(centralWidget);
         pushButton_clear_plainText->setObjectName(QStringLiteral("pushButton_clear_plainText"));
-        pushButton_clear_plainText->setGeometry(QRect(110, 280, 75, 23));
+        pushButton_clear_plainText->setGeometry(QRect(800, 520, 75, 23));
+        groupBox_5 = new QGroupBox(centralWidget);
+        groupBox_5->setObjectName(QStringLiteral("groupBox_5"));
+        groupBox_5->setGeometry(QRect(200, 9, 671, 51));
+        pushButton_recordFlow = new QPushButton(groupBox_5);
+        pushButton_recordFlow->setObjectName(QStringLiteral("pushButton_recordFlow"));
+        pushButton_recordFlow->setGeometry(QRect(10, 20, 75, 23));
+        pushButton_execFlow = new QPushButton(groupBox_5);
+        pushButton_execFlow->setObjectName(QStringLiteral("pushButton_execFlow"));
+        pushButton_execFlow->setGeometry(QRect(340, 20, 75, 23));
+        comboBox_uartCmdFlowList = new QComboBox(groupBox_5);
+        comboBox_uartCmdFlowList->setObjectName(QStringLiteral("comboBox_uartCmdFlowList"));
+        comboBox_uartCmdFlowList->setGeometry(QRect(110, 20, 211, 22));
+        pushButton_recFlow_loadConfig = new QPushButton(groupBox_5);
+        pushButton_recFlow_loadConfig->setObjectName(QStringLiteral("pushButton_recFlow_loadConfig"));
+        pushButton_recFlow_loadConfig->setGeometry(QRect(540, 20, 51, 23));
+        pushButton_recFlow_saveConfig = new QPushButton(groupBox_5);
+        pushButton_recFlow_saveConfig->setObjectName(QStringLiteral("pushButton_recFlow_saveConfig"));
+        pushButton_recFlow_saveConfig->setGeometry(QRect(480, 20, 51, 23));
+        pushButton_recFlow_delete = new QPushButton(groupBox_5);
+        pushButton_recFlow_delete->setObjectName(QStringLiteral("pushButton_recFlow_delete"));
+        pushButton_recFlow_delete->setGeometry(QRect(610, 20, 51, 23));
         MainWindow->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(MainWindow);
         menuBar->setObjectName(QStringLiteral("menuBar"));
@@ -559,6 +587,12 @@ public:
         pushButton_update->setText(QApplication::translate("MainWindow", "update", 0));
         pushButton_returnHome->setText(QApplication::translate("MainWindow", "return home", 0));
         pushButton_clear_plainText->setText(QApplication::translate("MainWindow", "clear", 0));
+        groupBox_5->setTitle(QApplication::translate("MainWindow", "\345\275\225\345\210\266", 0));
+        pushButton_recordFlow->setText(QApplication::translate("MainWindow", "\345\275\225\345\210\266", 0));
+        pushButton_execFlow->setText(QApplication::translate("MainWindow", "\346\211\247\350\241\214", 0));
+        pushButton_recFlow_loadConfig->setText(QApplication::translate("MainWindow", "load", 0));
+        pushButton_recFlow_saveConfig->setText(QApplication::translate("MainWindow", "save", 0));
+        pushButton_recFlow_delete->setText(QApplication::translate("MainWindow", "delete", 0));
     } // retranslateUi
 
 };

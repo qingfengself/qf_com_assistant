@@ -5,10 +5,15 @@
 #include <QDebug>
 #include <QTimer>
 #include <QDateTime>
+#include "dialog_config_recflow.h"
+#include <QTimer>
+#include <QThread>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    ui(new Ui::MainWindow)
+    ui(new Ui::MainWindow),
+    recFlowStart(0)
 {
     ui->setupUi(this);
 
@@ -17,6 +22,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     /* init btns */
     initBtns();
+
+    /** load configs */
+    load_recFlowConfigs();
 }
 
 MainWindow::~MainWindow()
@@ -144,6 +152,92 @@ void MainWindow::on_pushButton_clearCheckBox_clicked()
 void MainWindow::on_pushButton_clear_plainText_clicked()
 {
     ui->plainTextEdit_console->clear();
+}
+
+void MainWindow::on_pushButton_recordFlow_clicked()
+{
+    if (!recFlowStart) {
+        recFlowStart = 1;
+        ui->pushButton_recordFlow->setText("recording..");
+        ui->pushButton_recordFlow->setStyleSheet("background: green");
+    } else {
+        recFlowStart = 0;
+        ui->pushButton_recordFlow->setText("录制");
+        ui->pushButton_recordFlow->setStyleSheet("");
+
+        flowInfo_tmp.recFlow_idx = recFlowInfos.size() + 1;
+        flowInfo_tmp.recFlow_cmdDelayTime = 0;
+        flowInfo_tmp.recFlow_groupDelayTime = 0;
+        recFlowInfos.insert(flowInfo_tmp.recFlow_idx, flowInfo_tmp);
+        ;
+
+        /** config the record flow dialog */
+        Dialog_config_recFlow* dialogConfigRecFlow = new Dialog_config_recFlow(this, flowInfo_tmp.recFlow_idx);
+        dialogConfigRecFlow->show();
+
+        flowInfo_tmp.recFlow_cmds.clear();
+    }
+}
+
+void MainWindow::on_pushButton_execFlow_clicked()
+{
+    static int recFlow_running = 0;
+    static QTimer* execRecFlow_timer = new QTimer();
+    connect(execRecFlow_timer, SIGNAL(timeout()), this, SLOT(slot_execRecordFlow_timerHandler()));
+
+    if (!recFlow_running) {
+        recFlow_running = 1;
+        ui->pushButton_execFlow->setText("running...");
+        ui->pushButton_execFlow->setStyleSheet("background: red");
+
+        int idx = ui->comboBox_uartCmdFlowList->currentData().toUInt();
+        auto l_recFlowinfo = recFlowInfos.value(idx);
+
+        execRecFlow_timer->start(l_recFlowinfo.recFlow_groupDelayTime);
+    } else {
+        recFlow_running = 0;
+        ui->pushButton_execFlow->setText("执行");
+        ui->pushButton_execFlow->setStyleSheet("");
+        execRecFlow_timer->stop();
+    }
+
+}
+
+void MainWindow::on_pushButton_recFlow_saveConfig_clicked()
+{
+    save_recFlowConfigs();
+}
+
+void MainWindow::on_pushButton_recFlow_delete_clicked()
+{
+    uint32_t idx = ui->comboBox_uartCmdFlowList->currentData().toUInt();
+    qDebug() << idx ;
+    recFlowInfos.remove(idx);
+
+    /** refresh combox */
+    refresh_recFlowComboBox();
+}
+
+void MainWindow::on_pushButton_recFlow_loadConfig_clicked()
+{
+    load_recFlowConfigs();
+}
+
+
+void MainWindow::slot_execRecordFlow_timerHandler()
+{
+    int idx = ui->comboBox_uartCmdFlowList->currentData().toUInt();
+    auto l_recFlowinfo = recFlowInfos.value(idx);
+    for (auto cmd_list = l_recFlowinfo.recFlow_cmds.cbegin(); cmd_list != l_recFlowinfo.recFlow_cmds.cend(); cmd_list++) {
+        QString recFlowSend = hexByteArrayToString(*cmd_list);
+        qDebug() << recFlowSend;
+        writeDataToSerial(*cmd_list);
+        //QThread::sleep(l_recFlowinfo.recFlow_cmdDelayTime);
+        QTime _Timer = QTime::currentTime().addMSecs(l_recFlowinfo.recFlow_cmdDelayTime);
+        while( QTime::currentTime() < _Timer )
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
+
+    }
 }
 
 /*************************************************************
@@ -370,9 +464,15 @@ void MainWindow::readDataFromSerial()
 
 void MainWindow::writeDataToSerial(const QByteArray data)
 {
+
     QString str_snd = "[ send ] : ";
     str_snd += hexByteArrayToString(data);
     ui->plainTextEdit_console->appendPlainText(str_snd);
+
+    if (recFlowStart) {
+        flowInfo_tmp.recFlow_cmds.append(data);
+    }
+
     serial->write(data);
 }
 
@@ -689,4 +789,140 @@ uint16_t MainWindow::crc16_check(QByteArray pLcPtr, uint16_t LcLen)
     return(lwCRC16);
 }
 
+void MainWindow::refresh_recFlowComboBox()
+{
+    /* clear */
+    ui->comboBox_uartCmdFlowList->clear();
 
+    /* add new info */
+    for (auto it=recFlowInfos.cbegin(); it!=recFlowInfos.cend(); it++) {
+        ui->comboBox_uartCmdFlowList->addItem(it->recFlow_name, it->recFlow_idx);
+    }
+
+}
+
+QString MainWindow::convertToSaveType(uint32_t data)
+{
+    return QString("%1").arg(data);
+}
+
+QString MainWindow::convertToSaveType(QString data)
+{
+    return data;
+}
+
+QString MainWindow::convertToSaveType(QByteArray data)
+{
+    QString str_hex = "";
+    for (auto it=data.cbegin(); it != data.cend(); it++) {
+        str_hex += QString("%1").arg((uchar)*it, 2, 16, QChar('0'));
+        str_hex += " ";
+    }
+    return str_hex;
+}
+
+uint32_t MainWindow::convertSaveTypeTo_uint32(QString data)
+{
+    return data.toUInt();
+}
+
+QString MainWindow::convertSaveTypeTo_str(QString data)
+{
+    return data;
+}
+
+QByteArray MainWindow::convertSaveTypeTo_byteArray(QString data)
+{
+    QByteArray data_byteArray;
+    QStringList data_list = data.split(' ', QString::SkipEmptyParts);
+    qDebug() << data;
+    for (auto it=data_list.cbegin(); it!=data_list.cend(); it++) {
+        data_byteArray.append((*it).toInt(nullptr,16));
+    }
+    return data_byteArray;
+}
+
+void MainWindow::save_recFlowConfigs()
+{
+    /* open file */
+    QFile recFlowconfigSettings("recFlowConfig.txt");
+
+
+    if (!recFlowconfigSettings.open(QFile::WriteOnly | QFile::Truncate)) {
+        qDebug() << "open file error";
+        return ;
+    }
+
+    QTextStream out(&recFlowconfigSettings);
+
+    for (auto i=recFlowInfos.cbegin(); i!=recFlowInfos.cend(); i++) {
+        out << convertToSaveType(i->recFlow_idx) << ","
+            << convertToSaveType(i->recFlow_name) << ","
+            << convertToSaveType(i->recFlow_cmdDelayTime) << ","
+            << convertToSaveType(i->recFlow_groupDelayTime) << ",";
+
+            for (auto cmds=i->recFlow_cmds.cbegin(); cmds!=i->recFlow_cmds.cend(); cmds++) {
+                out << convertToSaveType(*cmds) << ",";
+            }
+
+        out << endl;
+    }
+
+    recFlowconfigSettings.close();
+}
+
+int MainWindow::load_recFlowConfigs()
+{
+    /* open file */
+    QFile recFlowconfigSettings("recFlowConfig.txt");
+    QTextStream fileIn(&recFlowconfigSettings);
+
+    if (!recFlowconfigSettings.open(QFile::ReadOnly)) {
+        qDebug() << "open file error";
+        return -1;
+    }
+
+    while (!fileIn.atEnd()) {
+        QString line = fileIn.readLine();
+        QStringList lineList = line.split(',', QString::SkipEmptyParts);
+        qDebug() << "lineList.size = " << lineList.size();
+        REC_FLOW_INFOS_s recFlow_info;
+        recFlow_info.recFlow_idx = lineList.at(0).toInt();
+        recFlow_info.recFlow_name = lineList.at(1);
+        recFlow_info.recFlow_cmdDelayTime = convertSaveTypeTo_uint32(lineList.at(2));
+        recFlow_info.recFlow_groupDelayTime = convertSaveTypeTo_uint32(lineList.at(3));
+        for (int i=4; i<lineList.size(); i++) {
+            recFlow_info.recFlow_cmds.append(convertSaveTypeTo_byteArray(lineList.at(i)));
+        }
+
+        recFlowInfos.insert(recFlow_info.recFlow_idx, recFlow_info);
+
+    }
+
+    recFlowconfigSettings.close();
+
+    /** refresh combox */
+    refresh_recFlowComboBox();
+
+    return 0;
+}
+
+/***************************************************************
+ * public functions
+ * *************************************************************/
+REC_FLOW_INFOS_s MainWindow::getRecFlowInfos(int idx)
+{
+    return *recFlowInfos.find(idx);
+}
+
+void MainWindow::setRecFlowInfos(REC_FLOW_INFOS_s info)
+{
+
+    REC_FLOW_INFOS_s & flowInfo = recFlowInfos.find(info.recFlow_idx).value();
+    flowInfo.recFlow_name = info.recFlow_name;
+    flowInfo.recFlow_cmdDelayTime = info.recFlow_cmdDelayTime;
+    flowInfo.recFlow_groupDelayTime = info.recFlow_groupDelayTime;
+
+    refresh_recFlowComboBox();
+
+}

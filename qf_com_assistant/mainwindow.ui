@@ -116,9 +116,9 @@
     <property name="geometry">
      <rect>
       <x>200</x>
-      <y>20</y>
+      <y>60</y>
       <width>671</width>
-      <height>491</height>
+      <height>451</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_2">
@@ -1012,8 +1012,8 @@
    <widget class="QPushButton" name="pushButton_clear_plainText">
     <property name="geometry">
      <rect>
-      <x>110</x>
-      <y>280</y>
+      <x>800</x>
+      <y>520</y>
       <width>75</width>
       <height>23</height>
      </rect>
@@ -1021,6 +1021,94 @@
     <property name="text">
      <string>clear</string>
     </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBox_5">
+    <property name="geometry">
+     <rect>
+      <x>200</x>
+      <y>9</y>
+      <width>671</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>录制</string>
+    </property>
+    <widget class="QPushButton" name="pushButton_recordFlow">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>20</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>录制</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_execFlow">
+     <property name="geometry">
+      <rect>
+       <x>340</x>
+       <y>20</y>
+       <width>75</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>执行</string>
+     </property>
+    </widget>
+    <widget class="QComboBox" name="comboBox_uartCmdFlowList">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>20</y>
+       <width>211</width>
+       <height>22</height>
+      </rect>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_recFlow_loadConfig">
+     <property name="geometry">
+      <rect>
+       <x>540</x>
+       <y>20</y>
+       <width>51</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>load</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_recFlow_saveConfig">
+     <property name="geometry">
+      <rect>
+       <x>480</x>
+       <y>20</y>
+       <width>51</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>save</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_recFlow_delete">
+     <property name="geometry">
+      <rect>
+       <x>610</x>
+       <y>20</y>
+       <width>51</width>
+       <height>23</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>delete</string>
+     </property>
+    </widget>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menuBar">
