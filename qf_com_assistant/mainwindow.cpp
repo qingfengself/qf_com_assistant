@@ -158,28 +158,36 @@ void MainWindow::on_pushButton_carInfo_update_clicked()
 
     /** gear */
     if (ui->radioButton_carInfo_gear_p->isChecked()) {
-        gear = 0x01;
+        gear = CARINFO_GEAR_P;
     } else if (ui->radioButton_carInfo_gear_R->isChecked()) {
-        gear = 0x02;
+        gear = CARINFO_GEAR_R;
     } else if (ui->radioButton_carInfo_gear_N->isChecked()) {
-        gear = 0x03;
+        gear = CARINFO_GEAR_N;
     } else if (ui->radioButton_carInfo_gear_D->isChecked()) {
-        gear = 0x04;
+        gear = CARINFO_GEAR_D;
     } else if (ui->radioButton_carInfo_gear_M->isChecked()) {
-        gear = 0x05;
+        gear = CARINFO_GEAR_M;
     } else if (ui->radioButton_carInfo_gear_I->isChecked()) {
-        gear = 0x07;
+        gear = CARINFO_GEAR_I;
     }
 
     if (ui->radioButton_carInfo_steeringWheel_middle->isChecked()) {
-        gear |= 0x10;
+        gear |= CARINFO_STATE_STEERINGWHEEL_MIDDLE;
     } else if (ui->radioButton_carInfo_steeringWheel_left->isChecked()) {
-        gear |= 0x20;
+        gear |= CARINFO_STATE_STEERINGWHEEL_LEFT;
     } else if (ui->radioButton_carInfo_steeringWheel_right->isChecked()) {
-        gear |= 0x30;
+        gear |= CARINFO_STATE_STEERINGWHEEL_RIGHT;
     }
 
+    if (ui->checkBox_carInfo_innerLight->isChecked()) {
+        gear |= CARINFO_STATE_INNER_LIGHT;
+    }
 
+    if (ui->checkBox_carInfo_parkingLight->isChecked()) {
+        gear |= CARINFO_STATE_PARKING_LIGHT;
+    }
+
+#if 0
     /** steering wheel */
     if (ui->radioButton_carInfo_steeringWheel_middle->isChecked()) {
         steeringWheel = 0x10;
@@ -188,54 +196,58 @@ void MainWindow::on_pushButton_carInfo_update_clicked()
     } else if (ui->radioButton_carInfo_steeringWheel_right->isChecked()) {
         steeringWheel = 0x30;
     }
+#endif
 
     /** ligth signal */
     if (ui->checkBox_carInfo_leftTurn->isChecked()) {
-        lightSignal |= 0x01;
+        lightSignal |= CARINFO_STATE_LEFT_TURN;
     }
     if (ui->checkBox_carInfo_rightTurn->isChecked()) {
-        lightSignal |= 0x02;
+        lightSignal |= CARINFO_STATE_RIGHT_TURN;
     }
     if (ui->checkBox_carInfo_highBeam->isChecked()) {
-        lightSignal |= 0x04;
+        lightSignal |= CARINFO_STATE_HIGH_BEAM;
     }
     if (ui->checkBox_carInfo_lowBeam->isChecked()) {
-        lightSignal |= 0x08;
+        lightSignal |= CARINFO_STATE_LOW_BEAM;
     }
     if (ui->checkBox_carInfo_troubleLight->isChecked()) {
-        lightSignal |= 0x10;
+        lightSignal |= CARINFO_STATE_TROUBLE_LIGHT;
     }
-    if (ui->checkBox_carInfo_parkingLight->isChecked()) {
-        lightSignal |= 0x20;
+    if (ui->checkBox_carInfo_positionLight->isChecked()) {
+        lightSignal |= CARINFO_STATE_POSITION_LIGHT;
     }
     if (ui->checkBox_carInfo_frontFogLamb->isChecked()) {
-        lightSignal |= 0x40;
+        lightSignal |= CARINFO_STATE_FRONT_FOG_LIGHT;
     }
     if (ui->checkBox_carInfo_rearFogLamb->isChecked()) {
-        lightSignal |= 0x80;
+        lightSignal |= CARINFO_STATE_REAR_FOG_LIGHT;
     }
 
     /** safety signals */
     if (ui->checkBox_carInfo_acceleratorPedal->isChecked()) {
-        saftySignal = 0x01;
+        saftySignal |= CARINFO_STATE_ACCELERATOR_PEDAL;
     }
     if (ui->checkBox_carInfo_break->isChecked()) {
-        saftySignal = 0x02;
+        saftySignal |= CARINFO_STATE_FOOT_BRAKE;
+    }
+    if (ui->checkBox_carInfo_handBreak->isChecked()) {
+        saftySignal |= CARINFO_STATE_HAND_BRAKE;
     }
     if (ui->checkBox_carInfo_saftyBelt->isChecked()) {
-        saftySignal = 0x04;
+        saftySignal |= CARINFO_STATE_SAFETY_BELT;
     }
     if (ui->checkBox_carInfo_door_driver->isChecked()) {
-        saftySignal = 0x08;
+        saftySignal |= CARINFO_STATE_DRIVER_DOOR;
     }
     if (ui->checkBox_carInfo_door_passenger->isChecked()) {
-        saftySignal = 0x10;
+        saftySignal |= CARINFO_STATE_PASSENGER_DOOR;
     }
     if (ui->checkBox_carInfo_door_rearLeft->isChecked()) {
-        saftySignal = 0x20;
+        saftySignal |= CARINFO_STATE_REAR_LEFT_DOOR;
     }
     if (ui->checkBox_carInfo_door_rearRight->isChecked()) {
-        saftySignal = 0x40;
+        saftySignal |= CARINFO_STATE_REAR_RIGHT_DOOR;
     }
 
     /** speed */

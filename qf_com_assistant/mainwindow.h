@@ -31,6 +31,42 @@ private:
         bool localEchoEnabled;
     };
 
+/** gear */
+#define CARINFO_GEAR_P (0X01)
+#define CARINFO_GEAR_R (0X02)
+#define CARINFO_GEAR_N (0X03)
+#define CARINFO_GEAR_D (0X04)
+#define CARINFO_GEAR_M (0X05) /* manual */
+#define CARINFO_GEAR_I (0X07) /* intermediate position */
+
+/** carInfo */
+#define CARINFO_STATE_STEERINGWHEEL_MIDDLE  (0X10)
+#define CARINFO_STATE_STEERINGWHEEL_LEFT    (0X20)
+#define CARINFO_STATE_STEERINGWHEEL_RIGHT   (0X30)
+
+#define CARINFO_STATE_INNER_LIGHT           (0X40)
+#define CARINFO_STATE_PARKING_LIGHT         (0X80)
+
+#define CARINFO_STATE_LEFT_TURN             (0X01)
+#define CARINFO_STATE_RIGHT_TURN            (0X02)
+#define CARINFO_STATE_HIGH_BEAM             (0X04)
+#define CARINFO_STATE_LOW_BEAM              (0X08)
+#define CARINFO_STATE_TROUBLE_LIGHT         (0X10)
+#define CARINFO_STATE_POSITION_LIGHT        (0X20)
+#define CARINFO_STATE_REAR_FOG_LIGHT        (0X40)
+#define CARINFO_STATE_FRONT_FOG_LIGHT       (0X80)
+
+#define CARINFO_STATE_ACCELERATOR_PEDAL     (0X01)
+#define CARINFO_STATE_FOOT_BRAKE            (0X02)
+#define CARINFO_STATE_HAND_BRAKE            (0X04)
+#define CARINFO_STATE_SAFETY_BELT           (0X08)
+#define CARINFO_STATE_DRIVER_DOOR           (0X10)
+#define CARINFO_STATE_PASSENGER_DOOR        (0X20)
+#define CARINFO_STATE_REAR_LEFT_DOOR        (0X40)
+#define CARINFO_STATE_REAR_RIGHT_DOOR       (0X80)
+
+
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();

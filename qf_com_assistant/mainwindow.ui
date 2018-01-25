@@ -1005,7 +1005,7 @@
      <widget class="QLineEdit" name="lineEdit_carInfo_speed">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>340</x>
         <y>10</y>
         <width>131</width>
         <height>31</height>
@@ -1015,7 +1015,7 @@
      <widget class="QLabel" name="label_6">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>280</x>
         <y>20</y>
         <width>54</width>
         <height>12</height>
@@ -1028,7 +1028,7 @@
      <widget class="QLabel" name="label_7">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>480</x>
         <y>20</y>
         <width>54</width>
         <height>12</height>
@@ -1041,10 +1041,10 @@
      <widget class="QGroupBox" name="groupBox_5">
       <property name="geometry">
        <rect>
-        <x>240</x>
-        <y>50</y>
+        <x>10</x>
+        <y>0</y>
         <width>261</width>
-        <height>141</height>
+        <height>181</height>
        </rect>
       </property>
       <property name="title">
@@ -1158,7 +1158,7 @@
        <property name="geometry">
         <rect>
          <x>10</x>
-         <y>100</y>
+         <y>140</y>
          <width>141</width>
          <height>16</height>
         </rect>
@@ -1172,12 +1172,12 @@
         <rect>
          <x>150</x>
          <y>100</y>
-         <width>61</width>
+         <width>81</width>
          <height>16</height>
         </rect>
        </property>
        <property name="text">
-        <string>break</string>
+        <string>foot break</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_carInfo_saftyBelt">
@@ -1193,11 +1193,50 @@
         <string>safty belt</string>
        </property>
       </widget>
+      <widget class="QCheckBox" name="checkBox_carInfo_handBreak">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>100</y>
+         <width>101</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>hand break</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_carInfo_innerLight">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>120</y>
+         <width>101</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>Inner lightl</string>
+       </property>
+      </widget>
+      <widget class="QCheckBox" name="checkBox_carInfo_positionLight">
+       <property name="geometry">
+        <rect>
+         <x>150</x>
+         <y>140</y>
+         <width>101</width>
+         <height>16</height>
+        </rect>
+       </property>
+       <property name="text">
+        <string>position light</string>
+       </property>
+      </widget>
      </widget>
      <widget class="QLabel" name="label_8">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>280</x>
         <y>60</y>
         <width>54</width>
         <height>12</height>
@@ -1210,7 +1249,7 @@
      <widget class="QLabel" name="label_9">
       <property name="geometry">
        <rect>
-        <x>210</x>
+        <x>480</x>
         <y>60</y>
         <width>54</width>
         <height>12</height>
@@ -1223,7 +1262,7 @@
      <widget class="QLineEdit" name="lineEdit_carInfo_mileage">
       <property name="geometry">
        <rect>
-        <x>70</x>
+        <x>340</x>
         <y>50</y>
         <width>131</width>
         <height>31</height>
@@ -1233,7 +1272,7 @@
      <widget class="QGroupBox" name="groupBox_6">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>280</x>
         <y>90</y>
         <width>221</width>
         <height>51</height>
@@ -1298,7 +1337,7 @@
      <widget class="QGroupBox" name="groupBox_7">
       <property name="geometry">
        <rect>
-        <x>10</x>
+        <x>280</x>
         <y>140</y>
         <width>221</width>
         <height>51</height>
@@ -1343,7 +1382,7 @@
         </rect>
        </property>
        <property name="text">
-        <string>reart left</string>
+        <string>rear left</string>
        </property>
       </widget>
       <widget class="QCheckBox" name="checkBox_carInfo_door_rearRight">
@@ -1356,16 +1395,16 @@
         </rect>
        </property>
        <property name="text">
-        <string>reart right</string>
+        <string>rear right</string>
        </property>
       </widget>
      </widget>
      <widget class="QGroupBox" name="groupBox_8">
       <property name="geometry">
        <rect>
-        <x>500</x>
+        <x>520</x>
         <y>90</y>
-        <width>161</width>
+        <width>141</width>
         <height>101</height>
        </rect>
       </property>
@@ -1451,6 +1490,18 @@
        </property>
       </widget>
      </widget>
+     <zorder>lineEdit_carInfo_speed</zorder>
+     <zorder>label_6</zorder>
+     <zorder>label_7</zorder>
+     <zorder>groupBox_5</zorder>
+     <zorder>label_8</zorder>
+     <zorder>label_9</zorder>
+     <zorder>lineEdit_carInfo_mileage</zorder>
+     <zorder>groupBox_6</zorder>
+     <zorder>pushButton_carInfo_update</zorder>
+     <zorder>groupBox_7</zorder>
+     <zorder>groupBox_8</zorder>
+     <zorder>checkBox_carInfo_door_driver</zorder>
     </widget>
    </widget>
    <widget class="QPushButton" name="pushButton_update">
