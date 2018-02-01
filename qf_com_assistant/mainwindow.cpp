@@ -92,6 +92,8 @@ void MainWindow::on_pushButton_clicked()
        data = getBtnMoveWithIdx();
     } else if (p_btn == ui->pushButton_delete) {
        data = getBtnDelWithIdx();
+    } else if (p_btn == ui->pushButton_updateCarInfo) {
+        data =getUpdateCarInfoSndHex();
     } else {
        QString sndHex = sndBtnTable.value(p_btn);
        data = hexToByteArray(sndHex);
@@ -631,6 +633,10 @@ void MainWindow::initBtns()
 
     /** others */
     connect(ui->checkBox_all, QCheckBox::stateChanged, this, MainWindow::on_checkBox_all_stateChanged);
+
+    /* update carInfo */
+    connect(ui->pushButton_updateCarInfo, QPushButton::clicked, this, MainWindow::on_pushButton_clicked);
+    sndBtnTable[ui->pushButton_updateCarInfo] = "AB BA 03 0C 05 00 00 00 00 00";
 }
 
 QByteArray MainWindow::getBtnUpdateTimeSndHex()
@@ -720,6 +726,31 @@ QByteArray MainWindow::getBtnDelWithIdx()
     index = index << 3;
     hexData[8] = (index >> 8) & 0xff;
     hexData[9] = index & 0xff;
+
+    return hexData;
+}
+
+QByteArray MainWindow::getUpdateCarInfoSndHex()
+{
+
+    QByteArray hexData = hexToByteArray(sndBtnTable.value(ui->pushButton_updateCarInfo));
+    // "AB BA 03 0c 05 -- 00 00 00 00 00 --"
+
+    /** gear hexData[7] */
+    uint8_t gear_type = 0;
+    uint8_t gear_value = 0;
+
+    if (ui->radioButton_gear_type_A->isChecked()) {
+        gear_type = 0; // A
+    } else if (ui->radioButton_gear_type_B->isChecked()) {
+        gear_type = 1; // B
+    }
+
+    gear_value = ui->lineEdit_gear_value->text().toInt(nullptr, 16);
+
+    hexData[7] = (gear_type & 0x07) | (gear_value <<3);
+
+    qDebug() << hexData[7] << gear_type << gear_value;
 
     return hexData;
 }
@@ -926,3 +957,4 @@ void MainWindow::setRecFlowInfos(REC_FLOW_INFOS_s info)
     refresh_recFlowComboBox();
 
 }
+

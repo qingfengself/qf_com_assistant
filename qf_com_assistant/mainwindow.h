@@ -92,6 +92,7 @@ private:
     QByteArray getBtnPlayWithIdx();
     QByteArray getBtnMoveWithIdx();
     QByteArray getBtnDelWithIdx();
+    QByteArray getUpdateCarInfoSndHex();
     uint16_t getCheckBoxIdx();
 
     /* tools */
