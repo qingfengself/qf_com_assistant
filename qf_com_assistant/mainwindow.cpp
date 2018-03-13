@@ -156,6 +156,7 @@ void MainWindow::initSerialPort()
     ui->comboBox_baudRate->addItem(QStringLiteral("19200"), QSerialPort::Baud19200);
     ui->comboBox_baudRate->addItem(QStringLiteral("38400"), QSerialPort::Baud38400);
     ui->comboBox_baudRate->addItem(QStringLiteral("115200"), QSerialPort::Baud115200);
+    ui->comboBox_baudRate->setCurrentIndex(2);
     //ui->baudRateBox->addItem(tr("Custom"));
 
     /* data bits */
